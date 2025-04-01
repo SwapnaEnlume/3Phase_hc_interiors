@@ -3643,31 +3643,37 @@ class ReportsController extends AppController
 			$objPHPExcel->getActiveSheet()->SetCellValue('Y1', 'LENGTH');
 			
 			$objPHPExcel->getActiveSheet()->SetCellValue('Z1', 'CC LF');
-			
-			$objPHPExcel->getActiveSheet()->SetCellValue('AA1', 'DRP WIDTHS');
-			/* PPSASCRUM-326: start */
-			$objPHPExcel->getActiveSheet()->SetCellValue('AB1', 'VALANCE LF');
-			$objPHPExcel->getActiveSheet()->SetCellValue('AC1', 'CORNICE LF');
-			
-			
-			$objPHPExcel->getActiveSheet()->SetCellValue('AD1', 'YDS / UNIT');
-			$objPHPExcel->getActiveSheet()->SetCellValue('AE1', 'TOTAL YARDS');
-			$objPHPExcel->getActiveSheet()->SetCellValue('AF1', 'BASE');
-			$objPHPExcel->getActiveSheet()->SetCellValue('AG1', 'TIERS');
-			$objPHPExcel->getActiveSheet()->SetCellValue('AH1', 'ADJ PRICE');
-			$objPHPExcel->getActiveSheet()->SetCellValue('AI1', 'EXT PRICE');
 
-            
-            
-            $objPHPExcel->getActiveSheet()->SetCellValue('AJ1', 'PRODUCED');
-			$objPHPExcel->getActiveSheet()->SetCellValue('AK1', 'SHIPPED');
+			/* PPSASCRUM-326: start */
+			$objPHPExcel->getActiveSheet()->SetCellValue('AA1', 'BS - BS');
+			$objPHPExcel->getActiveSheet()->SetCellValue('AB1', 'BS - Pill');
+			$objPHPExcel->getActiveSheet()->SetCellValue('AC1', 'BS - Skirt');
+			$objPHPExcel->getActiveSheet()->SetCellValue('AD1', 'BS- Scar');
 			
-			$objPHPExcel->getActiveSheet()->SetCellValue('AL1', 'TRACKING #');
+			$objPHPExcel->getActiveSheet()->SetCellValue('AE1', 'DRP WIDTHS');
+			
+			$objPHPExcel->getActiveSheet()->SetCellValue('AF1', 'WT Basic HW LF');
+			
+			$objPHPExcel->getActiveSheet()->SetCellValue('AG1', 'VALANCE LF');
+			
+			$objPHPExcel->getActiveSheet()->SetCellValue('AH1', 'CORNICE LF');
+			
+			$objPHPExcel->getActiveSheet()->SetCellValue('AI1', 'YDS / UNIT');
+			$objPHPExcel->getActiveSheet()->SetCellValue('AJ1', 'TOTAL YARDS');
+			$objPHPExcel->getActiveSheet()->SetCellValue('AK1', 'BASE');
+			$objPHPExcel->getActiveSheet()->SetCellValue('AL1', 'TIERS');
+			$objPHPExcel->getActiveSheet()->SetCellValue('AM1', 'ADJ PRICE');
+			$objPHPExcel->getActiveSheet()->SetCellValue('AN1', 'EXT PRICE');
+
+            $objPHPExcel->getActiveSheet()->SetCellValue('AO1', 'PRODUCED');
+			$objPHPExcel->getActiveSheet()->SetCellValue('AP1', 'SHIPPED');
+			
+			$objPHPExcel->getActiveSheet()->SetCellValue('AQ1', 'TRACKING #');
 			/**PPSASCRUM-113 start **/
-			$objPHPExcel->getActiveSheet()->SetCellValue('AM1', 'INVOICED DATE');
+			$objPHPExcel->getActiveSheet()->SetCellValue('AR1', 'INVOICED DATE');
 			/**PPSASCRUM-113 start **/
 			
-			$objPHPExcel->getActiveSheet()->SetCellValue('AN1', 'LINE NOTES');
+			$objPHPExcel->getActiveSheet()->SetCellValue('AS1', 'LINE NOTES');
 			/* PPSASCRUM-326: end */
 			
 			
@@ -3711,37 +3717,41 @@ class ReportsController extends AppController
 			$objPHPExcel->getActiveSheet()->getColumnDimension('Z')->setWidth(20);
 			
 			
-			$objPHPExcel->getActiveSheet()->getColumnDimension('AA')->setWidth(20);
-			$objPHPExcel->getActiveSheet()->getColumnDimension('AB')->setWidth(20);
+			$objPHPExcel->getActiveSheet()->getColumnDimension('AA')->setWidth(20); // BS
+			$objPHPExcel->getActiveSheet()->getColumnDimension('AB')->setWidth(20); // PILL
+			$objPHPExcel->getActiveSheet()->getColumnDimension('AC')->setWidth(20); // SKIRT
+			$objPHPExcel->getActiveSheet()->getColumnDimension('AD')->setWidth(20); // SCAR
 			
 			
-			$objPHPExcel->getActiveSheet()->getColumnDimension('AC')->setWidth(20);
+			$objPHPExcel->getActiveSheet()->getColumnDimension('AE')->setWidth(20); // DRAPE WIDTHS
 			
-			$objPHPExcel->getActiveSheet()->getColumnDimension('AD')->setWidth(20);
-			$objPHPExcel->getActiveSheet()->getColumnDimension('AE')->setWidth(20);
+			$objPHPExcel->getActiveSheet()->getColumnDimension('AF')->setWidth(20); // WT Basic HW LF
+			
+			$objPHPExcel->getActiveSheet()->getColumnDimension('AG')->setWidth(20); // VALANCE LF
 			/* PPSASCRUM-326: start */
-			$objPHPExcel->getActiveSheet()->getColumnDimension('AF')->setWidth(20);
-			$objPHPExcel->getActiveSheet()->getColumnDimension('AG')->setWidth(30);
+			$objPHPExcel->getActiveSheet()->getColumnDimension('AH')->setWidth(20); // CORNICE LF
+			
+			$objPHPExcel->getActiveSheet()->getColumnDimension('AI')->setWidth(20); // YDS/UNIT
 			/* PPSASCRUM-358: end */
-			$objPHPExcel->getActiveSheet()->getColumnDimension('AH')->setWidth(15);
-			
-			
-			$objPHPExcel->getActiveSheet()->getColumnDimension('AI')->setWidth(15);
-			
-			$objPHPExcel->getActiveSheet()->getColumnDimension('AJ')->setWidth(15);
+			$objPHPExcel->getActiveSheet()->getColumnDimension('AJ')->setWidth(20); // TOTAL YDS
+			$objPHPExcel->getActiveSheet()->getColumnDimension('AK')->setWidth(20); // BASE
+			$objPHPExcel->getActiveSheet()->getColumnDimension('AL')->setWidth(30); // TIERS
 			/* PPSASCRUM-326: start */
-			$objPHPExcel->getActiveSheet()->getColumnDimension('AK')->setWidth(15);
-			$objPHPExcel->getActiveSheet()->getColumnDimension('AL')->setWidth(29);
-			$objPHPExcel->getActiveSheet()->getColumnDimension('AM')->setWidth(15);
-			$objPHPExcel->getActiveSheet()->getColumnDimension('AN')->setWidth(70);
+			$objPHPExcel->getActiveSheet()->getColumnDimension('AM')->setWidth(15); // ADJ PRICE
+			$objPHPExcel->getActiveSheet()->getColumnDimension('AN')->setWidth(15); // EXT PRICE
+			$objPHPExcel->getActiveSheet()->getColumnDimension('AO')->setWidth(15); // PRODUCED
+			$objPHPExcel->getActiveSheet()->getColumnDimension('AP')->setWidth(15); // SHIPPED
+			$objPHPExcel->getActiveSheet()->getColumnDimension('AQ')->setWidth(29); // TRACKING #
+			$objPHPExcel->getActiveSheet()->getColumnDimension('AR')->setWidth(15); // INVOICED DATE
+			$objPHPExcel->getActiveSheet()->getColumnDimension('AS')->setWidth(70); // LINE NOTES
 			/* PPSASCRUM-358: end */
 			
 
 			
 			$objPHPExcel->getActiveSheet()->getRowDimension('1')->setRowHeight(22);
 			/* PPSASCRUM-326: start */
-			$objPHPExcel->getActiveSheet()->getStyle('A1:AN1')->getAlignment()->setVertical(\PHPExcel_Style_Alignment::VERTICAL_CENTER);		
-			$objPHPExcel->getActiveSheet()->getStyle('A1:AN1')->applyFromArray(
+			$objPHPExcel->getActiveSheet()->getStyle('A1:AS1')->getAlignment()->setVertical(\PHPExcel_Style_Alignment::VERTICAL_CENTER);		
+			$objPHPExcel->getActiveSheet()->getStyle('A1:AS1')->applyFromArray(
 				array(
 					'fill' => array(
 						'type' => \PHPExcel_Style_Fill::FILL_SOLID,
@@ -4156,7 +4166,7 @@ class ReportsController extends AppController
                                     $metaArray['calculator-used'] == 'ripplefold-drapery' || $metaArray['calculator-used'] == 'accordiafold-drapery'
                                 ) {
                                     /* PPSASCRUM-384: end */
-                                  /* PPSASCRUM-326: start */
+                                  /* PPSASCRUM-326: end */
     								$itemDescription .= $productMap[$metaArray['calculator-used']];
     								if($metaArray['unit-of-measure'] == 'pair'){
     									$itemDescription .= "<br>Pair";
@@ -4440,6 +4450,10 @@ class ReportsController extends AppController
     						$cutwidthValue = $cutwidthwizard->toRichTextObject($cutwidthValue);
     						
     						/* PPSASCRUM-326: start */
+							$bsWidthValue = '---';
+							$bsPillowWidthValue = '---';
+							$bsBoxSpringCoverWidthValue = '---';
+							$bsScarvesWidthValue = '---';
     						if ($remainingUnscheduled > 0) {
     						    if($quoteItem['product_type'] == 'newcatchall-drapery'){
         						    $drapewidthsValue=intval($metaArray['labor-billable-widths']) * $remainingUnscheduled;
@@ -4452,6 +4466,22 @@ class ReportsController extends AppController
         						}else{
         						    $drapewidthsValue='';
         						}
+								if (($quoteItem['product_type'] == 'newcatchall-bedding' && (intval($quoteItem['product_class']) == 5 && in_array(intval($quoteItem['product_subclass']), [16, 20])) ||
+									$quoteItem['product_type'] == 'bedspreads' || $quoteItem['calculator_used'] == 'bedspread')) {
+									$bsWidthValue = $remainingUnscheduled;
+								} else if ($quoteItem['product_type'] == 'newcatchall-bedding') {
+									if (intval($quoteItem['product_class']) == 5 && intval($quoteItem['product_subclass']) == 17) {
+											$bsPillowWidthValue = $remainingUnscheduled;
+									} else if (intval($quoteItem['product_class']) == 5 && intval($quoteItem['product_subclass']) == 18) {
+											$bsBoxSpringCoverWidthValue = $remainingUnscheduled;
+									} else if (intval($quoteItem['product_class']) == 5 && intval($quoteItem['product_subclass']) == 19) {
+											$bsScarvesWidthValue = $remainingUnscheduled;
+									}
+								}
+								if ($quoteItem['product_type'] == 'newcatchall-hardware' && intval($quoteItem['product_class']) == 1
+									&& intval($quoteItem['product_subclass']) == 1) {
+										$hwWtBasicWidthValue = intval($metaArray['lf-each']) * $remainingUnscheduled;
+								}
     						} else {
         						if($quoteItem['product_type'] == 'newcatchall-drapery'){
         						    /* PPSASCRUM-326: start */
@@ -4468,6 +4498,22 @@ class ReportsController extends AppController
         						}else{
         						    $drapewidthsValue='';
         						}
+								if (($quoteItem['product_type'] == 'newcatchall-bedding' && (intval($quoteItem['product_class']) == 5 && in_array(intval($quoteItem['product_subclass']), [16, 20])) ||
+									$quoteItem['product_type'] == 'bedspreads' || $quoteItem['calculator_used'] == 'bedspread')) {
+									$bsWidthValue = $orderItem['qty'];
+								} else if ($quoteItem['product_type'] == 'newcatchall-bedding') {
+									if (intval($quoteItem['product_class']) == 5 && intval($quoteItem['product_subclass']) == 17) {
+											$bsPillowWidthValue = $orderItem['qty'];
+									} else if (intval($quoteItem['product_class']) == 5 && intval($quoteItem['product_subclass']) == 18) {
+											$bsBoxSpringCoverWidthValue = $orderItem['qty'];
+									} else if (intval($quoteItem['product_class']) == 5 && intval($quoteItem['product_subclass']) == 19) {
+											$bsScarvesWidthValue = $orderItem['qty'];
+									}
+								}
+								if ($quoteItem['product_type'] == 'newcatchall-hardware' && intval($quoteItem['product_class']) == 1
+									&& intval($quoteItem['product_subclass']) == 1) {
+										$hwWtBasicWidthValue = intval($metaArray['lf-each']) * intval($orderItem['qty']);
+								}
     						}
 							/* PPSASCRUM-326: end */
     						
@@ -4757,35 +4803,44 @@ class ReportsController extends AppController
     							$objPHPExcel->getActiveSheet()->SetCellValue('Y'.$rowCount, $lengthrichText);
     							$objPHPExcel->getActiveSheet()->SetCellValue('Z'.$rowCount, $cclfValue);
     							
-    							$objPHPExcel->getActiveSheet()->SetCellValue('AA'.$rowCount, $drapewidthsValue);
     							/* PPSASCRUM-326: start */
-								$objPHPExcel->getActiveSheet()->SetCellValue('AB'.$rowCount, $valanceWidthsValue);
-								$objPHPExcel->getActiveSheet()->SetCellValue('AC'.$rowCount, $corniceWidthsValue);
+								$objPHPExcel->getActiveSheet()->SetCellValue('AA'.$rowCount, $bsWidthValue); // BS
+								$objPHPExcel->getActiveSheet()->SetCellValue('AB'.$rowCount, $bsPillowWidthValue); // PILL
+								$objPHPExcel->getActiveSheet()->SetCellValue('AC'.$rowCount, $bsBoxSpringCoverWidthValue); // SKIRT
+								$objPHPExcel->getActiveSheet()->SetCellValue('AD'.$rowCount, $bsScarvesWidthValue); // SCAR
+								
+								$objPHPExcel->getActiveSheet()->SetCellValue('AE'.$rowCount, $drapewidthsValue); // DRAPE WIDTHS
+								
+								$objPHPExcel->getActiveSheet()->SetCellValue('AF'.$rowCount, $hwWtBasicWidthValue); // WT Basic HW LF
+								
+								$objPHPExcel->getActiveSheet()->SetCellValue('AG'.$rowCount, $valanceWidthsValue); // VALANCE LF
+								
+								$objPHPExcel->getActiveSheet()->SetCellValue('AH'.$rowCount, $corniceWidthsValue); // CORNICE LF
     							    							
-    							$objPHPExcel->getActiveSheet()->SetCellValue('AD'.$rowCount, $ydsperunitValue);
+    							$objPHPExcel->getActiveSheet()->SetCellValue('AI'.$rowCount, $ydsperunitValue); // YDS/UNIT
     							
-								$objPHPExcel->getActiveSheet()->SetCellValue('AE'.$rowCount, $totalydsvalue);
+								$objPHPExcel->getActiveSheet()->SetCellValue('AJ'.$rowCount, $totalydsvalue); // TOTAL YDS
     							
-								$objPHPExcel->getActiveSheet()->SetCellValue('AF'.$rowCount, $basePriceValue);
+								$objPHPExcel->getActiveSheet()->SetCellValue('AK'.$rowCount, $basePriceValue); // BASE
     							
-								$objPHPExcel->getActiveSheet()->SetCellValue('AG'.$rowCount, $breakdownrichText);
+								$objPHPExcel->getActiveSheet()->SetCellValue('AL'.$rowCount, $breakdownrichText); // TIERS
     							
-								$objPHPExcel->getActiveSheet()->SetCellValue('AH'.$rowCount, $adjustedColValue);
+								$objPHPExcel->getActiveSheet()->SetCellValue('AM'.$rowCount, $adjustedColValue); // ADJ PRICE
     							
-								$objPHPExcel->getActiveSheet()->SetCellValue('AI'.$rowCount, $extendedprice);
+								$objPHPExcel->getActiveSheet()->SetCellValue('AN'.$rowCount, $extendedprice); // EXT PRICE
     							    							
-    							$objPHPExcel->getActiveSheet()->SetCellValue('AJ'.$rowCount, $dateProduced);
-    							$objPHPExcel->getActiveSheet()->getStyle('AJ'.$rowCount)->getNumberFormat()->setFormatCode('mm/dd/yyyy');
+    							$objPHPExcel->getActiveSheet()->SetCellValue('AO'.$rowCount, $dateProduced); // PRODUCED
+    							$objPHPExcel->getActiveSheet()->getStyle('AO'.$rowCount)->getNumberFormat()->setFormatCode('mm/dd/yyyy');
     							
-    							$objPHPExcel->getActiveSheet()->SetCellValue('AK'.$rowCount, $dateShipped);
-    							$objPHPExcel->getActiveSheet()->getStyle('AK'.$rowCount)->getNumberFormat()->setFormatCode('mm/dd/yyyy');
+    							$objPHPExcel->getActiveSheet()->SetCellValue('AP'.$rowCount, $dateShipped); // SHIPPED
+    							$objPHPExcel->getActiveSheet()->getStyle('AP'.$rowCount)->getNumberFormat()->setFormatCode('mm/dd/yyyy');
     							
-								$objPHPExcel->getActiveSheet()->SetCellValue('AL'.$rowCount, $trackingNumber);
+								$objPHPExcel->getActiveSheet()->SetCellValue('AQ'.$rowCount, $trackingNumber); // TRACKING #
     							
-								$objPHPExcel->getActiveSheet()->SetCellValue('AM'.$rowCount, $dateInvoiced);
-    							$objPHPExcel->getActiveSheet()->getStyle('AM'.$rowCount)->getNumberFormat()->setFormatCode('mm/dd/yyyy');
+								$objPHPExcel->getActiveSheet()->SetCellValue('AR'.$rowCount, $dateInvoiced); // INVOICED DATE
+    							$objPHPExcel->getActiveSheet()->getStyle('AR'.$rowCount)->getNumberFormat()->setFormatCode('mm/dd/yyyy');
     							
-								$objPHPExcel->getActiveSheet()->SetCellValue('AN'.$rowCount, $linenotesrichText);
+								$objPHPExcel->getActiveSheet()->SetCellValue('AS'.$rowCount, $linenotesrichText); // LINE NOTES
 								/* PPSASCRUM-326: end */
     							
     						
@@ -4796,7 +4851,7 @@ class ReportsController extends AppController
     							}
     						
     							/* PPSASCRUM-326: start */
-								$objPHPExcel->getActiveSheet()->getStyle('A'.$rowCount.':AN'.$rowCount)->applyFromArray(
+								$objPHPExcel->getActiveSheet()->getStyle('A'.$rowCount.':AS'.$rowCount)->applyFromArray(
     								array(
     									'fill' => array(
     										'type' => \PHPExcel_Style_Fill::FILL_SOLID,
@@ -4947,6 +5002,10 @@ class ReportsController extends AppController
             						}
             						
 									/* PPSASCRUM-326: start */
+									$bsWidthValue = '---';
+									$bsPillowWidthValue = '---';
+									$bsBoxSpringCoverWidthValue = '---';
+									$bsScarvesWidthValue = '---';
             						if ($qtyScheduled > 0) {
             						    if($quoteItem['product_type'] == 'newcatchall-drapery'){
                 						    $drapewidthsValue=intval($metaArray['labor-billable-widths']) * $qtyScheduled;
@@ -4970,6 +5029,22 @@ class ReportsController extends AppController
 											$valanceWidthsValue = '';
 										} else {
 											$corniceWidthsValue = '';
+										}
+										if (($quoteItem['product_type'] == 'newcatchall-bedding' && (intval($quoteItem['product_class']) == 5 && in_array(intval($quoteItem['product_subclass']), [16, 20])) ||
+											$quoteItem['product_type'] == 'bedspreads' || $quoteItem['calculator_used'] == 'bedspread')) {
+											$bsWidthValue = $qtyScheduled;
+										} else if ($quoteItem['product_type'] == 'newcatchall-bedding') {
+											if (intval($quoteItem['product_class']) == 5 && intval($quoteItem['product_subclass']) == 17) {
+													$bsPillowWidthValue = $qtyScheduled;
+											} else if (intval($quoteItem['product_class']) == 5 && intval($quoteItem['product_subclass']) == 18) {
+													$bsBoxSpringCoverWidthValue = $qtyScheduled;
+											} else if (intval($quoteItem['product_class']) == 5 && intval($quoteItem['product_subclass']) == 19) {
+													$bsScarvesWidthValue = $qtyScheduled;
+											}
+										}
+										if ($quoteItem['product_type'] == 'newcatchall-hardware' && intval($quoteItem['product_class']) == 1
+											&& intval($quoteItem['product_subclass']) == 1) {
+												$hwWtBasicWidthValue = intval($metaArray['lf-each']) * $qtyScheduled;
 										}
             						} else {
                 						if($quoteItem['product_type'] == 'newcatchall-drapery'){
@@ -4998,6 +5073,22 @@ class ReportsController extends AppController
 											$valanceWidthsValue = '';
 										} else {
 											$corniceWidthsValue = '';
+										}
+										if (($quoteItem['product_type'] == 'newcatchall-bedding' && (intval($quoteItem['product_class']) == 5 && in_array(intval($quoteItem['product_subclass']), [16, 20])) ||
+											$quoteItem['product_type'] == 'bedspreads' || $quoteItem['calculator_used'] == 'bedspread')) {
+											$bsWidthValue = $orderItem['qty'];
+										} else if ($quoteItem['product_type'] == 'newcatchall-bedding') {
+											if (intval($quoteItem['product_class']) == 5 && intval($quoteItem['product_subclass']) == 17) {
+													$bsPillowWidthValue = $orderItem['qty'];
+											} else if (intval($quoteItem['product_class']) == 5 && intval($quoteItem['product_subclass']) == 18) {
+													$bsBoxSpringCoverWidthValue = $orderItem['qty'];
+											} else if (intval($quoteItem['product_class']) == 5 && intval($quoteItem['product_subclass']) == 19) {
+													$bsScarvesWidthValue = $orderItem['qty'];
+											}
+										}
+										if ($quoteItem['product_type'] == 'newcatchall-hardware' && intval($quoteItem['product_class']) == 1
+											&& intval($quoteItem['product_subclass']) == 1) {
+												$hwWtBasicWidthValue = intval($metaArray['lf-each']) * intval($orderItem['qty']);
 										}
             						}
 									/* PPSASCRUM-326: end */
@@ -5052,35 +5143,44 @@ class ReportsController extends AppController
     								$objPHPExcel->getActiveSheet()->SetCellValue('Y'.$rowCount, $lengthrichText);
     								$objPHPExcel->getActiveSheet()->SetCellValue('Z'.$rowCount, $totallfrichText);
     								
-    								$objPHPExcel->getActiveSheet()->SetCellValue('AA'.$rowCount, $drapewidthsValue);
 									/* PPSASCRUM-326: start */
-    								$objPHPExcel->getActiveSheet()->SetCellValue('AB'.$rowCount, $valanceWidthsValue);
-    								$objPHPExcel->getActiveSheet()->SetCellValue('AC'.$rowCount, $corniceWidthsValue);
+    								$objPHPExcel->getActiveSheet()->SetCellValue('AA'.$rowCount, $bsWidthValue); // BS
+    								$objPHPExcel->getActiveSheet()->SetCellValue('AB'.$rowCount, $bsPillowWidthValue); // PILL
+    								$objPHPExcel->getActiveSheet()->SetCellValue('AC'.$rowCount, $bsBoxSpringCoverWidthValue); // SKIRT
+    								$objPHPExcel->getActiveSheet()->SetCellValue('AD'.$rowCount, $bsScarvesWidthValue); // SCAR
     								
-    								$objPHPExcel->getActiveSheet()->SetCellValue('AD'.$rowCount, $ydsperunitValue);
+									$objPHPExcel->getActiveSheet()->SetCellValue('AE'.$rowCount, $drapewidthsValue); // DRAPE WIDTHS
     								
-									$objPHPExcel->getActiveSheet()->SetCellValue('AE'.$rowCount, $totalydsvalue);
+									$objPHPExcel->getActiveSheet()->SetCellValue('AF'.$rowCount, $hwWtBasicWidthValue);  // WT Basic HW LF
     								
-									$objPHPExcel->getActiveSheet()->SetCellValue('AF'.$rowCount, $basePriceValue);
+    								$objPHPExcel->getActiveSheet()->SetCellValue('AG'.$rowCount, $valanceWidthsValue); // VALANCE LF
+    								
+									$objPHPExcel->getActiveSheet()->SetCellValue('AH'.$rowCount, $corniceWidthsValue); // CORNICE LF
+    								
+									$objPHPExcel->getActiveSheet()->SetCellValue('AI'.$rowCount, $ydsperunitValue); // YDS/UNIT
 
-									$objPHPExcel->getActiveSheet()->SetCellValue('AG'.$rowCount, $breakdownrichText);
+									$objPHPExcel->getActiveSheet()->SetCellValue('AJ'.$rowCount, $totalydsvalue); // TOTAL YDS
     								
-									$objPHPExcel->getActiveSheet()->SetCellValue('AH'.$rowCount, $adjustedColValue);
+									$objPHPExcel->getActiveSheet()->SetCellValue('AK'.$rowCount, $basePriceValue); // BASE
+									
+									$objPHPExcel->getActiveSheet()->SetCellValue('AL'.$rowCount, $breakdownrichText); // TIERS
+									
+									$objPHPExcel->getActiveSheet()->SetCellValue('AM'.$rowCount, $adjustedColValue); // ADJ PRICE
     								
-									$objPHPExcel->getActiveSheet()->SetCellValue('AI'.$rowCount, $extendedprice);
+									$objPHPExcel->getActiveSheet()->SetCellValue('AN'.$rowCount, $extendedprice); // EXT PRICE
 
-    								$objPHPExcel->getActiveSheet()->SetCellValue('AJ'.$rowCount, $dateProduced);
-    								$objPHPExcel->getActiveSheet()->getStyle('AJ'.$rowCount)->getNumberFormat()->setFormatCode('mm/dd/yyyy');
+    								$objPHPExcel->getActiveSheet()->SetCellValue('AO'.$rowCount, $dateProduced); // PRODUCED
+    								$objPHPExcel->getActiveSheet()->getStyle('AO'.$rowCount)->getNumberFormat()->setFormatCode('mm/dd/yyyy');
     								
-    								$objPHPExcel->getActiveSheet()->SetCellValue('AK'.$rowCount, $dateShipped);
-    								$objPHPExcel->getActiveSheet()->getStyle('AK'.$rowCount)->getNumberFormat()->setFormatCode('mm/dd/yyyy');
+    								$objPHPExcel->getActiveSheet()->SetCellValue('AP'.$rowCount, $dateShipped); // SHIPPED
+    								$objPHPExcel->getActiveSheet()->getStyle('AP'.$rowCount)->getNumberFormat()->setFormatCode('mm/dd/yyyy');
     								
-    								$objPHPExcel->getActiveSheet()->SetCellValue('AL'.$rowCount, $trackingNumber);
+    								$objPHPExcel->getActiveSheet()->SetCellValue('AQ'.$rowCount, $trackingNumber); // TRACKING #
     								
-									$objPHPExcel->getActiveSheet()->SetCellValue('AM'.$rowCount, $dateInvoiced);
-    								$objPHPExcel->getActiveSheet()->getStyle('AM'.$rowCount)->getNumberFormat()->setFormatCode('mm/dd/yyyy');
+									$objPHPExcel->getActiveSheet()->SetCellValue('AR'.$rowCount, $dateInvoiced); // INVOICED DATE
+    								$objPHPExcel->getActiveSheet()->getStyle('AR'.$rowCount)->getNumberFormat()->setFormatCode('mm/dd/yyyy');
     								
-    								$objPHPExcel->getActiveSheet()->SetCellValue('AN'.$rowCount, $linenotesrichText);
+    								$objPHPExcel->getActiveSheet()->SetCellValue('AS'.$rowCount, $linenotesrichText); // LINE NOTES
     								/* PPSASCRUM-326: end */
     								
     
@@ -5092,7 +5192,7 @@ class ReportsController extends AppController
     								}
     
 									/* PPSASCRUM-326: start */
-    								$objPHPExcel->getActiveSheet()->getStyle('A'.$rowCount.':AN'.$rowCount)->applyFromArray(
+    								$objPHPExcel->getActiveSheet()->getStyle('A'.$rowCount.':AS'.$rowCount)->applyFromArray(
     									array(
     										'fill' => array(
     											'type' => \PHPExcel_Style_Fill::FILL_SOLID,
@@ -5165,18 +5265,24 @@ class ReportsController extends AppController
 			$objPHPExcel->getActiveSheet()->getStyle('AL1:AL'.$rowCount)->getAlignment()->setHorizontal('center');
 			/* PPSASCRUM-326: start */
 			$objPHPExcel->getActiveSheet()->getStyle('AM1:AM'.$rowCount)->getAlignment()->setHorizontal('center');
-			$objPHPExcel->getActiveSheet()->getStyle('AN1:AN'.$rowCount)->getAlignment()->setHorizontal('left');
+			$objPHPExcel->getActiveSheet()->getStyle('AN1:AN'.$rowCount)->getAlignment()->setHorizontal('center');
+			$objPHPExcel->getActiveSheet()->getStyle('AO1:AO'.$rowCount)->getAlignment()->setHorizontal('center');
+			$objPHPExcel->getActiveSheet()->getStyle('AP1:AP'.$rowCount)->getAlignment()->setHorizontal('center');
+			$objPHPExcel->getActiveSheet()->getStyle('AQ1:AQ'.$rowCount)->getAlignment()->setHorizontal('center');
+			
+			$objPHPExcel->getActiveSheet()->getStyle('AR1:AR'.$rowCount)->getAlignment()->setHorizontal('center');
+			$objPHPExcel->getActiveSheet()->getStyle('AS1:AS'.$rowCount)->getAlignment()->setHorizontal('left');
 			
 			
-			$objPHPExcel->getActiveSheet()->getStyle('A1:AN'.$rowCount)->getAlignment()->setVertical(\PHPExcel_Style_Alignment::VERTICAL_TOP );
+			$objPHPExcel->getActiveSheet()->getStyle('A1:AS'.$rowCount)->getAlignment()->setVertical(\PHPExcel_Style_Alignment::VERTICAL_TOP );
 			
-			$objPHPExcel->getActiveSheet()->getStyle('A1:AN'.$rowCount)->getAlignment()->setWrapText(true);
+			$objPHPExcel->getActiveSheet()->getStyle('A1:AS'.$rowCount)->getAlignment()->setWrapText(true);
 			
 			//$objPHPExcel->getActiveSheet()->getStyle('AF2:AF'.$rowCount)->
 			
 			
 			
-			$objPHPExcel->getActiveSheet()->getStyle("A1:AN".$rowCount)->applyFromArray(
+			$objPHPExcel->getActiveSheet()->getStyle("A1:AS".$rowCount)->applyFromArray(
 				array(
 					'borders' => array(
 						'allborders' => array(
