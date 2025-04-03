@@ -225,7 +225,4 @@ class AdminController extends AppController
 		$this->set('metaKeys',$metaKeys);
 		
 	}
-
-
-	
 }
