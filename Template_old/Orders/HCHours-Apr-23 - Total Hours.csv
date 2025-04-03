@@ -1,0 +1,83 @@
+Date,Description,Hours
+2023-04-28,Worked on PPSASCRUM-7 completed the edit functionality changes and add new feilds updation code in the controller,2
+2023-04-28,Deployed the PPSACRUM-7 changes to dev environment and also run the alter queries and created new queries in the dev server,2
+2023-04-28,Worked on PPSASCRUM-7 for adding the new columns as per the new requirement changes.,2
+2023-04-28,"Worked on the PPSASCRUM-7 ticket for testing the ShipTo, Facility and Add and Edit order functionality in local",2
+2023-04-27,Worked on PPSASCRUM-7 for edit page changes for the adding the New Address and New facility function and testing the flow. for add and edit functionality,2
+2023-04-27,Worked on PPSASCRUM-7 for edit page changes for the adding the New Address and New facility function.,2
+2023-04-27,Worked on PPSASCRUM-7 for edit page changes as per the new requirement for adding the user selection types and view based on the selection of user type,2
+2023-04-27,Worked on PPSASCRUM-7 for edit page changes as per the new requirement for adding the user selection types.,2
+2023-04-26,Worked on PPSASCRUM-7 for adding the logic for New Address selection and facility default address functionality facing some redirection issue looking into it.,2
+2023-04-26,Worked on PPSASCRUM-7 for adding the logic for New Address selection and facility default address functionality facing some redirection issue looking into it.,2
+2023-04-26,Worked on PPSASCRUM-7 for adding the logic for New Address selection and facility default address functionality to the add new page.,2
+2023-04-26,Worked on PPSASCRUM-7 for adding the logic for New Address selection and facility default address functionality to the add new page.,2
+2023-04-25,"Worked on PPSASCRUM-7 for Add New functionality for the Order Add New page, adding the logic for the New Address addition functionality",2
+2023-04-25,"Worked on PPSASCRUM-7 for Add New functionality for the Order Add New page, adding the logic for the New Address addition functionality",2
+2023-04-25,"Worked on PPSASCRUM-7 for Add New functionality for the Order Add New page, for that changing the page according to the new design changes.",2
+2023-04-25,"Worked on PPSASCRUM-7 for Add New functionality for the Order Add New page, for that changing the page according to the new design changes.",2
+2023-04-24,Worked on PPSASCRUM-7 for Facility page delete functionality and search functionality changes.,2
+2023-04-24,Worked on PPSASCRUM-7 for Facility page delete functionality and search functionality changes.,2
+2023-04-24,Worked on PPSASCRUM-7 for Facility new shipto address model creation and saving it to the DB.,2
+2023-04-24,Worked on PPSASCRUM-7 for Facility new shipto address model creation and saving it to the DB.,2
+2023-04-21,"countined Worked on PPSASCRUM-7 for Facility creating form page, facing issue while add shipto address while returning the page with updated values.",2
+2023-04-21,"Worked on PPSASCRUM-7 for Facility creating form page, facing issue while add shipto address while returning the page with updated values.",2
+2023-04-21,"Worked on PPSASCRUM-7 for Facility creating form page, facing issue for add shipto address model popup page",2
+2023-04-21,Worked on PPSASCRUM-7 for Faclity data table listing .,2
+2023-04-20,Worked on PPSASCRUM-7 sorting and download functionality for shipto listing,2
+2023-04-20,Worked on PPSASCRUM-7 for deleting the existing record from the listing page,2
+2023-04-20,Continued Worked on PPSASCRUM-7 Add Ship-To DB + Facilities DB for writing the logic for editing existing record the shipto tables data.,2
+2023-04-20,Continued Worked on PPSASCRUM-7 Add Ship-To DB + Facilities DB for writing the logic for editing existing record the shipto tables data.,2
+2023-04-19,Continued Worked on PPSASCRUM-7 Add Ship-To DB + Facilities DB for writing the logic for creating a new the shipto tables data.,2
+2023-04-19,Worked on PPSASCRUM-7 Add Ship-To DB + Facilities DB for writing the logic for creating a new the shipto tables data.,2
+2023-04-19,Worked on PPSASCRUM-7 Add Ship-To DB + Facilities DB for writing the logic for listing the shipto tables data.,2
+2023-04-19,Worked on PPSASCRUM-7 Add Ship-To DB + Facilities DB. for creating the table for new shipto and facility tables.,2
+2023-04-18,Worked on deploying the PPSASCRUM-2 ticket changes to production and tested it partially.,2
+2023-04-18,Worked on creating subtickets for PPSASCRUM-14 tickets and estimating them. and worked on PPSASCRUM-2 for query changes as per the ticket comments.,2
+2023-04-18,Worked on creating subtickets for PPSASCRUM-14 tickets and estimating them. Worked on PPSASCRUM-3 ticket updating issue posted in the ticket.,2
+2023-04-18,Worked on creating subtickets for PPSASCRUM-14 tickets and estimating them.,2
+2023-04-17,Worked on PPSASCRUM-14 going through the documentation and code to understand the flow and process to do over it,2
+2023-04-17,Worked on PPSASCRUM-14 going through the documentation and code to understand the flow and process to do over it,2
+2023-04-17,Worked on PPSASCRUM-14 going through the documentation provided to understand the new requirement.,2
+2023-04-17,Worked on PPSASCRUM-2 for fixing the comments posted and fixed and tested in the dev for the same.,2
+2023-04-14,Worked on the testing the ZOHO API in the application for updating new columns with the ZOHO values.,2
+2023-04-14,Working on writing the script for inserting the created field with the quotes table created field to it.,2
+2023-04-14,Working on writing the script for inserting the created field with the quote_item_add_log time field to it.,2
+2023-04-14,Worked on PPSASCRUM-3 ticket to production and done with basic testing in prod,2
+2023-04-13,Worked on PPSASCRUM -2 for modifying the code to fetch the data from the quote_line_item table with the created field filter and filtering code changes for the report dowload,2
+2023-04-13,Working on PPSASCRUM-2 for writing the code to updated the created columns for all the quote_line_items line item types.,2
+2023-04-13,Working on PPSASCRUM-2 for writing the code to updated the created columns for all the quote_line_items line item types.,2
+2023-04-13,Worked on PPSASCRUM-3 for comments posted for 2.4 & 2.5 changes and also looking into the ZOHO records display,2
+2023-04-12,Worked on changes PPSASCRUM-2 for writing the sequel query to fetch the details from the activity_log for quote_line_item ids. and also worked on looking into code for activity log insertion and quotes_item_log_add table logic,2
+2023-04-12,Worked on changes PPSASCRUM-2 for reports fetching from the activity_logs table as understanding for the ticket was wrong,2
+2023-04-12,Worked on PPSASCRUM-3 for changes for Box Inventory and deployed the changes to dev for testing.,2
+2023-04-12,"Worked on PPSASCRUM-3 for changes for adding the on credit hold functionality for Batch Quick Rescheduler, Batch Shipping Processor",2
+2023-04-11,"Worked on PPSASCRUM-3 for changes for adding the on credit hold functionality Sherry Schedule: Scheduled Batches view, Batch Editor: changes for adding the on credit hold functionality",2
+2023-04-11,"Worked on PPSASCRUM-3 for Sherry Schedule: ‘Unscheduled’ section,Batch Creator (Both versions) changes for adding the on credit hold functionality",2
+2023-04-11,"Worked on PPSASCRUM-3 for Batch Breakdown View,WO Packaging View changes for adding the on credit hold functionality",2
+2023-04-11,"Worked on PPSASCRUM-3 for adding the functionality changes for Active Quotes List ,Quote (QuoteBuilder View) **** Adding values from the Risk Management section from Customer Details ****,Orders List changes for adding the on credit hold functionality",2
+2023-04-10,Working on n PPSASCRUM-3 for Edit functionality changes for adding the new columns to the form.,2
+2023-04-10,Working on n PPSASCRUM-3 for continued the work Add functionality changes for adding the new columns to the form.,2
+2023-04-10,Working on n PPSASCRUM-3 for Add functionality changes for adding the new columns to the form.,2
+2023-04-10,Worked PPSASCRUM-3 identified the Alter query for adding the new columns into the Customers table,2
+2023-04-08,Worked on PPSA_47 QuoteBuilder not populating line items Fixed it and deployed to production,1
+2023-04-07,PPSA-40 Continued working on the logic for downloading the specified columns for the reports page,2
+2023-04-07,PPSA-40 Deployed the changes to staging and requested to confirm the changes.,2
+2023-04-07,"Gave the Estimates for PPSASCRUM-12,PPSASCRUM-11,PPSASCRUM-10, PPSASCRUM-09",2
+2023-04-07,Fixed the PPSA-33 and PPSA-36 production setup comments for missing items,2
+2023-04-06,PPSA-40 fixed the backlog message while submitting the from and working on the logic for downloading the specified columns for the reports page,2
+2023-04-06,PPSA-40. Worked on creating the report page for with the researched the code for backlog error while submitting the form,2
+2023-04-06,PPSA-40. Worked on creating the report page for with the controller logic for the implementation for the same.,2
+2023-04-06,Worked on deploying the PPSA-36 and PPSA-33 ticket to production and tested them in the production,2
+2023-04-05,PPSA-40. Worked on creating the report page for with the necessary field and logic in the controller for the same.,2
+2023-04-05,Worked on creating the scrum board and add the tickets to it. PPSA-40Add New Report: Quotes – “New Lines Created. Checked the code for implenting the logic for the functionality changes,2
+2023-04-05,"Worked on PPSA-36-Remove field from Catch-All forms. worked on Cubicle Curtains, Valance, Drapery, Cornice, SWT Misc, page changes for removing the type-in completing the task",2
+2023-04-05,Worked on PPSA-36-Remove field from Catch-All forms. for that checked the code and implemented the logic for the completing the task,2
+2023-04-04,"Worked on PPSA-27 running the script into the local database for some (20000,30000)of the records.",2
+2023-04-04,"Worked on PPSA-27 running the script into the local database for some (10000, 20000)of the records.",2
+2023-04-04,"Worked on PPSA-27 running the script into the local database for some (0, 10000)of the records.",2
+2023-04-04,"Worked on PPSA-28 running the script into the local database for some (30000, 40000)of the records.",2
+2023-04-03,"Worked on PPSA-28 running the script into the local database for some (20000, 30000)of the records.",2
+2023-04-03,"Worked on PPSA-28 running the script into the local database for some (10000, 20000)of the records.",2
+2023-04-03,"Worked on PPSA-28 running the script into the local database for some (1,10000)of the records.",2
+2023-04-03,Worked on PPSA-28 - for writing the script for inserting the code into the work_order_line_item_meta tables.,2
+,Total,161
