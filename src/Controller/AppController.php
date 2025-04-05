@@ -2989,32 +2989,39 @@ if($mode == 'quote')
 		return $newSherryStatus;
 	}	*/
 	public function auditOrderItemStatuses($orderID,$verbose=false,$ordermode=''){
-		$order=$this->Orders->get($orderID)->toArray();
 		$outstandingOrderItems=array();
-	    $orderItems=$this->OrderItems->find('all',['conditions'=>['order_id' => $order['id']]])->toArray();
 	    
 	    //added the check for workorders table as on update and sheey batching we use and update workorder's and its items table.
         if($ordermode == 'workorder'){
             $workOrder=$this->WorkOrders->get($orderID)->toArray();
-            $outstandingWorkOrderItems=array();
-            $workOrderItems=$this->WorkOrderItems->find('all',['conditions'=>['order_id' => $order['id']]])->toArray();
+		/* PPSASCRUM-248: start [ordermode based if-else code structuring, reusable order ID variable, common variable for SO/WO order item] */
+			$fetchedOrderID = intval($workOrder['id']);
+			$orderItems = $this->WorkOrderItems->find('all', ['conditions' => ['order_id' => $fetchedOrderID]])->toArray();
+		}
+		else {
+			$order = $this->Orders->get($orderID)->toArray();
+			$fetchedOrderID = intval($order['id']);
+			$orderItems = $this->OrderItems->find('all', ['conditions' => ['order_id' => $fetchedOrderID]])->toArray();
         }
-	if(count($orderItems) > 0 || count($workOrderItems) > 0){
+		/* PPSASCRUM-248: end */
+		
+		/* PPSASCRUM-248: start [updating condition after the update in above snippet to fetch SO/WO order items in a common variable] */
+		if(count($orderItems) > 0){
+		/* PPSASCRUM-248: end */
 		   	foreach($orderItems as $orderLineItem){
-		   	  if(empty($ordermode))
+				/* PPSASCRUM-248: start [clubbing if conditions with same logic and wrapping the if statement logic in a code-block] */
+				if (empty($ordermode) || $ordermode == 'order') {
+				/* PPSASCRUM-248: end */
 		   	  try{
-		   	  			$thisQuoteItem=$this->OrderLineItems->get($orderLineItem['id'])->toArray();
+						/* PPSASCRUM-248: start [rectifying query by fixing the table mapping: 'quote_line_item_id' column from the OrderItems table maps with the ID of OrderLineItems table record, fetching precisely by Order ID] */
+						$thisQuoteItem = $this->OrderLineItems->find('all', ['conditions' => ['order_id' => $fetchedOrderID, 'id' => $orderLineItem['quote_line_item_id']]])->first()->toArray();
+						/* PPSASCRUM-248: end */
 		   	  }catch (RecordNotFoundException $e) { }
-
-
-		   	  elseif($ordermode == 'workorder'){
+				}/* PPSASCRUM-248: end */ elseif($ordermode == 'workorder'){
 		   	  try{
-		   	  			        $thisQuoteItem=$this->WorkOrderLineItems->get($orderLineItem['id'])->toArray();
-							}catch (RecordNotFoundException $e) { }}
-
-		   	  elseif($ordermode == 'order') {
-		   	  try{
-			        $thisQuoteItem=$this->OrderLineItems->get($orderLineItem['id'])->toArray();
+						/* PPSASCRUM-248: start [rectifying query by fixing the table mapping: 'quote_line_item_id' column from the WorkOrderItems table maps with the 'order_line_item_id' column of 'WorkOrderLineItems' table, fetching precisely by Order ID] */
+						$thisQuoteItem = $this->WorkOrderLineItems->find('all', ['conditions' => ['order_id' => $fetchedOrderID, 'id' => $orderLineItem['quote_line_item_id']]])->first()->toArray();
+						/* PPSASCRUM-248: end */
 		   	}catch (RecordNotFoundException $e) { }
 		   	  }
 
@@ -3030,11 +3037,15 @@ if($mode == 'quote')
 				
 				//loop through all schedules on this order, this line number
 			if($ordermode == 'order' || empty($ordermode)) {
-			$thisOrderLineItemStatuses=$this->OrderItemStatus->find('all',['conditions'=>['work_order_id' => $order['id'],'order_line_number' => $thisQuoteItem['line_number'],'status IN' => ['Scheduled','In Progress','Completed','Warehoused','Shipped']],'order'=>['time'=>'desc']])->toArray();
-				
+							/* PPSASCRUM-248: start [reading the order ID accurately using the reusable ID reference referring the order object based on ordermode] */
+							$thisOrderLineItemStatuses = $this->OrderItemStatus->find('all', ['conditions' => ['work_order_id' => $fetchedOrderID, 'order_line_number' => $thisQuoteItem['line_number'], 'status IN' => ['Scheduled', 'In Progress', 'Completed', 'Warehoused', 'Shipped']], 'order' => ['time' => 'desc']])->toArray();
+							/* PPSASCRUM-248: end */
 			}
-			elseif($ordermode == 'workorder')
-				$thisOrderLineItemStatuses=$this->WorkOrderItemStatus->find('all',['conditions'=>['work_order_id' => $order['id'],'order_line_number' => $thisQuoteItem['line_number'],'status IN' => ['Scheduled','In Progress','Completed','Warehoused','Shipped']],'order'=>['time'=>'desc']])->toArray();
+						/* PPSASCRUM-248: start [reading the order ID accurately using the reusable ID reference referring the order object based on ordermode within a new code-block for the if statement] */
+						elseif($ordermode == 'workorder') {
+							$thisOrderLineItemStatuses = $this->WorkOrderItemStatus->find('all', ['conditions' => ['work_order_id' => $fetchedOrderID, 'order_line_number' => $thisQuoteItem['line_number'], 'status IN' => ['Scheduled', 'In Progress', 'Completed', 'Warehoused', 'Shipped']], 'order' => ['time' => 'desc']])->toArray();
+						}
+						/* PPSASCRUM-248: end */
 		
 				foreach($thisOrderLineItemStatuses as $lineStatus){
 					//$totalQTY=($totalQTY - floatval($lineStatus['qty_involved']));
@@ -3084,9 +3095,9 @@ if($mode == 'quote')
 							$qtyNotStarted=($qtyNotStarted+intval($lineStatus['qty_involved']));
 						break;
 					}
-				}
+						}
 					
-					
+							// PPSA-248 below switch and array copied inside forloop
 				switch($thisQuoteItem['product_type']){
 					case "window_treatments":
 						if(preg_match("#drapery#i",$thisQuoteItem['title'])){

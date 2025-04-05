@@ -1859,7 +1859,9 @@ class OrdersController extends AppController{
             $this->updateWorkOrdersTable($order['id'],$quoteID);
                     
           
-			$this->auditOrderItemStatuses($order['id']);
+			/* PPSASCRUM-248: start [updating function with arguments as per complete set of function parameters] */
+			$this->auditOrderItemStatuses($order['id'], false, 'workorder');
+			/* PPSASCRUM-248: end */
 			
 
 			$thisQuote->status='orderplaced';
@@ -2677,7 +2679,9 @@ class OrdersController extends AppController{
 				}
 
 			}
-			$this->auditOrderItemStatuses($orderID);
+			/* PPSASCRUM-248: start [updating function with arguments as per complete set of function parameters] */
+			$this->auditOrderItemStatuses($orderID, false, 'workorder');
+			/* PPSASCRUM-248: end */
 			
 
 			
@@ -3775,7 +3779,9 @@ if(!empty($lineitemmeta['meta_value'])){
     				}
     
     				$this->updatesherrycachefordate($thisDate);
-    				$this->auditOrderItemStatuses($thisOrder['id']);
+    				/* PPSASCRUM-248: start [updating function with arguments as per complete set of function parameters] */
+					$this->auditOrderItemStatuses($thisOrder['id'], false, 'workorder');
+					/* PPSASCRUM-248: end */
     
     				$this->logActivity($_SERVER['REQUEST_URI'],'Deleted Sherry Batch ID '.$batchID);
     				$this->Flash->success('Successfully deleted selected sherry schedule batch');
@@ -4791,7 +4797,9 @@ if(!empty($lineitemmeta['meta_value'])){
 			}
 			
 			//rebuild the sherry cache for this date
-			$this->auditOrderItemStatuses($orderID);
+			/* PPSASCRUM-248: start [updating function with arguments as per complete set of function parameters] */
+			$this->auditOrderItemStatuses($orderID, false, 'workorder');
+			/* PPSASCRUM-248: end */
 			
 			$correctedOLDDate=$date;
 			$this->updatesherrycachefordate($correctedOLDDate);
@@ -5037,7 +5045,9 @@ if(!empty($lineitemmeta['meta_value'])){
 			
 
 			//rebuild the sherry cache for this date
-			$this->auditOrderItemStatuses($orderID);
+			/* PPSASCRUM-248: start [updating function with arguments as per complete set of function parameters] */
+			$this->auditOrderItemStatuses($orderID, false, 'workorder');
+			/* PPSASCRUM-248: end */
 			
 			$this->updatesherrycachefordate(date('Y-m-d',$thisDateTS));
 			
@@ -5175,7 +5185,9 @@ if(!empty($lineitemmeta['meta_value'])){
 				}
 				
 				//rebuild the sherry cache for this date
-				$this->auditOrderItemStatuses($orderID);
+				/* PPSASCRUM-248: start [updating function with arguments as per complete set of function parameters] */
+				$this->auditOrderItemStatuses($orderID, false, 'workorder');
+				/* PPSASCRUM-248: end */
 			
 				$this->updatesherrycachefordate(date('Y-m-d',$thisDateTS));
 				
@@ -5451,7 +5463,9 @@ if(!empty($lineitemmeta['meta_value'])){
     		}
     				
     		//rebuild the sherry cache for this date
-    		$this->auditOrderItemStatuses($orderID);
+    		/* PPSASCRUM-248: start [updating function with arguments as per complete set of function parameters] */
+			$this->auditOrderItemStatuses($orderID, false, 'workorder');
+			/* PPSASCRUM-248: end */
     			
     		$this->updatesherrycachefordate(date('Y-m-d',strtotime($this->request->data['date_invoiced'].' 12:00:00')));
     				
@@ -6193,7 +6207,9 @@ if(!empty($lineitemmeta['meta_value'])){
 			}
 
 			$this->updatesherrycachefordate($thisDate);
-			$this->auditOrderItemStatuses($thisOrderID);
+			/* PPSASCRUM-248: start [updating function with arguments as per complete set of function parameters] */
+			$this->auditOrderItemStatuses($thisOrderID, false, 'workorder');
+			/* PPSASCRUM-248: end */
 
 			$this->logActivity($_SERVER['REQUEST_URI'],'Voided "Shipped" batch status for batch #'.$batchID.' (WO# '.$thisWorkOrder['order_number'].')');
 
@@ -6238,7 +6254,9 @@ if(!empty($lineitemmeta['meta_value'])){
 			}
 			
 			$this->updatesherrycachefordate($thisDate);
-			$this->auditOrderItemStatuses($thisOrderID);
+			/* PPSASCRUM-248: start [updating function with arguments as per complete set of function parameters] */
+			$this->auditOrderItemStatuses($thisOrderID, false, 'workorder');
+			/* PPSASCRUM-248: end */
 
 			$this->logActivity($_SERVER['REQUEST_URI'],'Voided "Completion" batch status for batch #'.$batchID.' (WO#'.$thisWorkOrder['order_number'].')');
 
