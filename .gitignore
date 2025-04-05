@@ -23,3 +23,12 @@
 /app/Config/core.php
 /app/Config/database.php
 /vendors/*
+
+
+tests/*
+vendor/*
+logs/*
+bin/*
+cgi-bin/*
+webroot/*
+tmp/*

@@ -1,0 +1,24 @@
+[10-Nov-2023 16:28:16 UTC] PHP Warning:  Module 'imagick' already loaded in Unknown on line 0
+[10-Nov-2023 16:28:16 UTC] PHP Warning:  Module 'imagick' already loaded in Unknown on line 0
+[10-Nov-2023 16:28:16 UTC] PHP Warning:  require(webroot/index.php): failed to open stream: No such file or directory in /home/enldev/public_html/index.php on line 16
+[10-Nov-2023 16:28:16 UTC] PHP Fatal error:  require(): Failed opening required 'webroot/index.php' (include_path='.:/opt/cpanel/ea-php56/root/usr/share/pear') in /home/enldev/public_html/index.php on line 16
+[10-Nov-2023 16:28:19 UTC] PHP Warning:  Module 'imagick' already loaded in Unknown on line 0
+[10-Nov-2023 16:28:19 UTC] PHP Warning:  Module 'imagick' already loaded in Unknown on line 0
+[10-Nov-2023 16:28:19 UTC] PHP Warning:  require(webroot/index.php): failed to open stream: No such file or directory in /home/enldev/public_html/index.php on line 16
+[10-Nov-2023 16:28:19 UTC] PHP Fatal error:  require(): Failed opening required 'webroot/index.php' (include_path='.:/opt/cpanel/ea-php56/root/usr/share/pear') in /home/enldev/public_html/index.php on line 16
+[10-Nov-2023 16:28:22 UTC] PHP Warning:  Module 'imagick' already loaded in Unknown on line 0
+[10-Nov-2023 16:28:22 UTC] PHP Warning:  Module 'imagick' already loaded in Unknown on line 0
+[10-Nov-2023 16:28:22 UTC] PHP Warning:  require(webroot/index.php): failed to open stream: No such file or directory in /home/enldev/public_html/index.php on line 16
+[10-Nov-2023 16:28:22 UTC] PHP Fatal error:  require(): Failed opening required 'webroot/index.php' (include_path='.:/opt/cpanel/ea-php56/root/usr/share/pear') in /home/enldev/public_html/index.php on line 16
+[10-Nov-2023 16:28:48 UTC] PHP Warning:  Module 'imagick' already loaded in Unknown on line 0
+[10-Nov-2023 16:28:48 UTC] PHP Warning:  Module 'imagick' already loaded in Unknown on line 0
+[10-Nov-2023 16:35:38 UTC] PHP Warning:  Module 'imagick' already loaded in Unknown on line 0
+[10-Nov-2023 16:35:38 UTC] PHP Warning:  Module 'imagick' already loaded in Unknown on line 0
+[10-Nov-2023 16:55:31 UTC] PHP Warning:  Module 'imagick' already loaded in Unknown on line 0
+[10-Nov-2023 16:55:31 UTC] PHP Warning:  Module 'imagick' already loaded in Unknown on line 0
+[10-Nov-2023 17:04:46 UTC] PHP Warning:  Module 'imagick' already loaded in Unknown on line 0
+[10-Nov-2023 17:04:46 UTC] PHP Warning:  Module 'imagick' already loaded in Unknown on line 0
+[10-Nov-2023 17:05:12 UTC] PHP Warning:  Module 'imagick' already loaded in Unknown on line 0
+[10-Nov-2023 17:05:12 UTC] PHP Warning:  Module 'imagick' already loaded in Unknown on line 0
+[10-Nov-2023 17:08:48 UTC] PHP Warning:  Module 'imagick' already loaded in Unknown on line 0
+[10-Nov-2023 17:08:48 UTC] PHP Warning:  Module 'imagick' already loaded in Unknown on line 0
