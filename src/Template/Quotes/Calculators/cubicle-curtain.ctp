@@ -1909,6 +1909,11 @@ function doCalculation(){
 		}
 		
 		$('#inbound-freight').val(ibfrtpy);
+		/* PPSASCRUM-420: start [Inbound Freight should display any non-zero value held in its 'value' attribute instead of rendering with ZERO in the EDIT CC Calculator form] */
+		if (!parseFloat($('#inbound-freight').val()) && parseFloat($('#inbound-freight').attr('value'))) {
+			$('#inbound-freight').val(parseFloat($('#inbound-freight').attr('value')));
+		}
+		/* PPSASCRUM-420: end */
 	
 	
 		if($('#inbound-freight-custom-value').val() != ''){
@@ -3170,6 +3175,9 @@ setInterval('correctColHeights()',500);
 	if(canCalculate()){	
 		$('#cannotcalculate').hide();
 		doCalculation(); 
+		/* PPSASCRUM-420: start [calling the doCalculation() function to complete all the remaining calculations and show final correct values for all including Base Price] */
+		doCalculation();
+		/* PPSASCRUM-420: end */
 	}else{
 		$('#cannotcalculate').show();
 	}
