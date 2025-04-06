@@ -47797,12 +47797,15 @@ class QuotesController extends AppController
 								$quoteLineItem["id"] .
 								"\" /></a></div> ";
 	
-							$actions .=
+							/* PPSASCRUM-419: start [correctly passing the $mode instead of $ordermode to the JS function creating Line Note to work as expected for all the WO, SO and Quote] */
+                            $lineNoteMode = $thisQuote["status"] == "draft" ? $mode : $ordermode;
+                            $actions .=
 								"<div style=\"padding-left: 4px;\"><a href=\"javascript:addInternalNote('" .
 								$quoteLineItem["id"] .
 								"','" .
-								$ordermode .
+								$lineNoteMode .
 								"',".$quoteID.",".$quoteLineItem['line_number'].")\"><img src=\"/img/stickynote.png\" title=\"Add Note to this Line Item\" alt=\"Add Note to this Line Item\" /></a></div> ";
+                            /* PPSASCRUM-419: end */
 	
 							$ordermode =
 								$thisQuote["order_id"] > 0 ? $ordermode : " ";
