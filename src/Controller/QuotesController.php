@@ -29432,6 +29432,67 @@ class QuotesController extends AppController
         }
     }
 
+    /* PPSASCRUM-395: start [evaluate ruleset violation status and get ruleset violation report along with appropriate rejection message for batched line item] */
+    function checkRulesetViolationForBatchedLines(
+        $workOrderID,
+        $lineNumber,
+        $rulesetViolationType,
+        $rulesetViolationRejectionMessage
+    ) {
+        $batchedWOLineItemStatusLookup = $this->WorkOrderItemStatus->find("all", [
+            "conditions" => [
+                "work_order_id" => $workOrderID,
+                "order_line_number" => $lineNumber,
+                "status IN " => ["Scheduled", "In Progress", "Completed", "Warehoused", "Shipped", "Invoiced"]
+            ]
+        ])->toArray();
+
+        $batchedWOLines = [];
+        $postBatchedWOLines = [];
+
+        foreach ($batchedWOLineItemStatusLookup as $batchedWOLineStatusObj) {
+            if ($batchedWOLineStatusObj["status"] == "Scheduled") {
+                $batchedWOLines[] = $batchedWOLineStatusObj["order_line_number"];
+            }
+            if (in_array($batchedWOLineStatusObj["status"], ["Completed", "Shipped", "Invoiced"])) {
+                $postBatchedWOLines[] = $batchedWOLineStatusObj["order_line_number"];
+            }
+        }
+
+        $rulesetViolationReport = [
+            "workOrderID" => $workOrderID,
+            "lineNumber" => $lineNumber
+        ];
+
+        if (
+            in_array($lineNumber, $batchedWOLines) &&
+            in_array($lineNumber, $postBatchedWOLines)
+        ) {
+            $rulesetViolationReport += [
+                "isRulesetViolated" => true,
+                "rulesetViolationType" => $rulesetViolationType["ABSOLUTE"],
+                "rulesetViolationRejectionMessage" => $rulesetViolationRejectionMessage["ABSOLUTE"]
+            ];
+        } else if (
+            in_array($lineNumber, $batchedWOLines) &&
+            !in_array($lineNumber, $postBatchedWOLines)
+        ) {
+            $rulesetViolationReport += [
+                "isRulesetViolated" => true,
+                "rulesetViolationType" => $rulesetViolationType["CONDITIONAL"],
+                "rulesetViolationRejectionMessage" => $rulesetViolationRejectionMessage["CONDITIONAL"]
+            ];
+        } else {
+            $rulesetViolationReport += [
+                "isRulesetViolated" => false,
+                "rulesetViolationType" => $rulesetViolationType["NONE"]
+            ];
+        }
+
+        return $rulesetViolationReport;
+    }
+    /* PPSASCRUM-395: end */
+
     public function editcalclineitem($lineItemID, $ordermode = "")
     {
         //$this->autoRender=false;
@@ -29603,11 +29664,49 @@ class QuotesController extends AppController
                     $this->request->data[$itemmeta["meta_key"]] !=
                     $itemmeta["meta_value"]
                 ) { */
+
+                /* PPSASCRUM-395: start [determining possible ruleset violation on changing fabric or color and making appropriate rejection oriented API response accordingly] */
                 if (
+                    isset($thisLineItem["order_id"]) && strlen(trim($thisLineItem["order_id"]) > 0) &&
+                    $itemmeta["meta_key"] == "fabricid" && 
+                    $itemmeta["meta_value"] != $this->request->data[$itemmeta["meta_key"]]
+                ) {
+                    $fabricColorRulesetViolationRejectionMessage = [
+                        "ABSOLUTE" => "Rule Check: Fabric/Color on Line " . $thisLineItem["line_number"] . " CANNOT BE CHANGED as it has been Partially or Fully PRODUCED|SHIPPED|INVOICED. Might need to Create a new Line",
+                        "CONDITIONAL" => "Rule Check: Fabric/Color on Line " . $thisLineItem["line_number"] . " CANNOT BE CHANGED as it has been Partially or Fully BATCHED, but not PRODUCED. Consider Editing|Deleting the batch first."
+                    ];
+
+                    $rulesetViolationType = [
+                        "ABSOLUTE" => "Absolute Violation",
+                        "CONDITIONAL" => "Conditional Violation",
+                        "NONE" => "No Violation"
+                    ];
+
+                    $rulesetViolationReport = $this->checkRulesetViolationForBatchedLines(
+                        $thisLineItem["order_id"],
+                        $thisLineItem["line_number"],
+                        $rulesetViolationType,
+                        $fabricColorRulesetViolationRejectionMessage
+                    );
+
+                    if (
+                        $rulesetViolationReport["isRulesetViolated"] &&
+                        ($rulesetViolationReport["rulesetViolationType"] == $rulesetViolationType["ABSOLUTE"] ||
+                        $rulesetViolationReport["rulesetViolationType"] == $rulesetViolationType["CONDITIONAL"])
+                    ) {
+                        $this->Flash->error($rulesetViolationReport["rulesetViolationRejectionMessage"]);
+                        return $this->redirect(
+                            "/orders/editlines/" .
+                            $thisLineItem["order_id"] .
+                            "/order"
+                        );
+                    }
+                }
+                else if (
                     isset($this->request->data[$itemmeta['meta_key']]) &&
                     $this->request->data[$itemmeta['meta_key']] != $itemmeta['meta_value'] &&
                     $itemmeta['meta_key'] != 'libraryimageid'
-                ) {
+                ) /* PPSASCRUM-395: end */ {
                     /* PPSASCRUM-56: end */
                     $thisLineItemMeta->meta_value =
                         $this->request->data[$itemmeta["meta_key"]];
@@ -30167,6 +30266,45 @@ class QuotesController extends AppController
         }
         /* PPSASCRUM-100: end */
         if ($this->request->data) {
+            /* PPSASCRUM-395: start [determining possible ruleset violation on changing fabric or color and making appropriate rejection oriented API response accordingly] */
+            if (
+                isset($thisLineItem["order_id"]) && strlen(trim($thisLineItem["order_id"]) > 0) &&
+                $lineItemMetas["meta_key"] == "fabricid" && 
+                $lineItemMetas["meta_value"] != $this->request->data[$lineItemMetas["meta_key"]]
+            ) {
+                $fabricColorRulesetViolationRejectionMessage = [
+                    "ABSOLUTE" => "Rule Check: Fabric/Color on Line " . $thisLineItem["line_number"] . " CANNOT BE CHANGED as it has been Partially or Fully PRODUCED|SHIPPED|INVOICED. Might need to Create a new Line",
+                    "CONDITIONAL" => "Rule Check: Fabric/Color on Line " . $thisLineItem["line_number"] . " CANNOT BE CHANGED as it has been Partially or Fully BATCHED, but not PRODUCED. Consider Editing|Deleting the batch first."
+                ];
+
+                $rulesetViolationType = [
+                    "ABSOLUTE" => "Absolute Violation",
+                    "CONDITIONAL" => "Conditional Violation",
+                    "NONE" => "No Violation"
+                ];
+
+                $rulesetViolationReport = $this->checkRulesetViolationForBatchedLines(
+                    $thisLineItem["order_id"],
+                    $thisLineItem["line_number"],
+                    $rulesetViolationType,
+                    $fabricColorRulesetViolationRejectionMessage
+                );
+
+                if (
+                    $rulesetViolationReport["isRulesetViolated"] &&
+                    ($rulesetViolationReport["rulesetViolationType"] == $rulesetViolationType["ABSOLUTE"] ||
+                    $rulesetViolationReport["rulesetViolationType"] == $rulesetViolationType["CONDITIONAL"])
+                ) {
+                    $this->Flash->error($rulesetViolationReport["rulesetViolationRejectionMessage"]);
+                    return $this->redirect(
+                        "/orders/editlines/" .
+                        $thisLineItem["order_id"] .
+                        "/order"
+                    );
+                }
+            }
+            /* PPSASCRUM-395: end */
+            
             switch ($lineItemData["product_type"]) {
                 case "custom":
                     //save the changes to the catch-all item
