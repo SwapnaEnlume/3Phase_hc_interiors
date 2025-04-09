@@ -28519,12 +28519,69 @@ class QuotesController extends AppController
 
     public function deletelineitem($lineitemid, $ordermode = "")
     {
-        $this->autoRender = false;
-
+        /* PPSASCRUM-396: start [determining possible ruleset violation on changing fabric or color and making appropriate rejection oriented API response accordingly] */
+        // pulled up the line item fetching queries from below structure to utilize for fetched lines priorly for ruleset violation determination
         if ($ordermode == "workorder") {
             $entity = $this->WorkOrderLineItems->get($lineitemid);
-
             $quoteID = $entity->quote_id;
+        } elseif ($ordermode == "order") {
+            $entity = $this->OrderLineItems->get($lineitemid);
+            $quoteID = $entity->quote_id;
+        } else {
+            $entity = $this->QuoteLineItems->get($lineitemid);
+            $quoteID = $entity->quote_id;
+        }
+
+        if (
+            isset($entity["order_id"]) &&
+            strlen(trim($entity["order_id"])) > 0
+        ) {
+            $deleteLineItemRulesetViolationRejectionMessage = [
+                "ABSOLUTE" => "Rule Check: Line " . $entity["line_number"] . " CANNOT BE DELETED as it has been Partially or Fully PRODUCED|SHIPPED|INVOICED. Instead, consider ZEROING the dollar amount and adding a line note describing the reason",
+                "CONDITIONAL" => "Rule Check: Line " . $entity["line_number"] . " CANNOT BE DELETED UNTIL FULL QTY IS FULLY REMOVED FROM ANY UNPRODUCED BATCHES"
+            ];
+
+            $rulesetViolationType = [
+                "ABSOLUTE" => "Absolute Violation",
+                "CONDITIONAL" => "Conditional Violation",
+                "NONE" => "No Violation"
+            ];
+
+            $rulesetViolationReport = $this->checkRulesetViolationForBatchedLines(
+                $entity["order_id"],
+                $entity["line_number"],
+                $rulesetViolationType,
+                $deleteLineItemRulesetViolationRejectionMessage
+            );
+
+            if (
+                $rulesetViolationReport["isRulesetViolated"] &&
+                ($rulesetViolationReport["rulesetViolationType"] == $rulesetViolationType["ABSOLUTE"] ||
+                $rulesetViolationReport["rulesetViolationType"] == $rulesetViolationType["CONDITIONAL"])
+            ) {
+                $this->Flash->error($rulesetViolationReport["rulesetViolationRejectionMessage"]);
+                echo "<script>
+                        (function() {
+                            parent.$.fancybox.hideLoading();
+                            var jumpToLineItem = parent.jumpToLine;
+                            window.location.href = '/orders/editlines/" . $entity["order_id"] . "/order?page=" . $this->request->query["page"] . "&li_no=" . $entity["line_number"] . "';
+                            parent.lineItemsPaginatedTable.ajax.reload(function() {
+                                document.querySelector('#quoteitems').DataTable().page(" . $this->request->query["page"] . ").draw('page');
+                                jumpToLineItem(" . $entity["line_number"] . ");
+                            }, false);
+                        })();
+                    </script>";
+                // exit;
+                exit();
+            } else {
+                $this->autoRender = false;
+            }
+        } else {
+            $this->autoRender = false;
+        }
+        /* PPSASCRUM-396: end */
+
+        if ($ordermode == "workorder") {
 
             $thisquote = $this->Quotes->get($entity->quote_id);
 
@@ -28596,9 +28653,6 @@ class QuotesController extends AppController
                 }
             }
         } elseif ($ordermode == "order") {
-            $entity = $this->OrderLineItems->get($lineitemid);
-
-            $quoteID = $entity->quote_id;
 
             $thisquote = $this->Quotes->get($entity->quote_id);
 
@@ -28669,9 +28723,6 @@ class QuotesController extends AppController
                 }
             }
         } else {
-            $entity = $this->QuoteLineItems->get($lineitemid);
-
-            $quoteID = $entity->quote_id;
 
             $thisquote = $this->Quotes->get($entity->quote_id);
 
