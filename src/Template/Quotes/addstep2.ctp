@@ -1713,7 +1713,13 @@ function deleteLineItem(lineitemid, pageNo){
 /*PPSASCRUM-139: end*/
 	if(confirm('Are you sure you want to delete this line item?')){
 		$.fancybox.showLoading();
-		$.get('/quotes/deletelineitem/'+lineitemid+'/<?php echo $ordermode;?>',function(data){
+		/* PPSASCRUM-396: start [identifying JavaScript scriptlet reponse variant of this API, parsing and executing it upon receiving and sending data-table page number to facilitate the automatic data-table pagination navigation followed by auto-scrolling to the attempted line item for delete which failed due to ruleset rejection upon ruleset violation] */
+		$.get('/quotes/deletelineitem/'+lineitemid+'/<?php echo $ordermode;?>?page='+pageNo,function(data){
+			if (data.toString().startsWith("<script>")) {
+				const script = data.toString().substring(8, data.toString().length - 10);
+				eval(script);
+			}
+		/* PPSASCRUM-396: end */
 			if(data=="OK"){
 				/*PPSASCRUM-139: start*/
 				// updateQuoteTable();
