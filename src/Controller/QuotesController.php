@@ -47237,25 +47237,30 @@ class QuotesController extends AppController
         if ($imgLibraryTable->save($newImage)) {
             //insert the metadata for libraryimageid
             if ($ordermode == "workorder") {
-                $newLineItemMeta = $this->WorkOrderLineItemMeta->newEntity();
+                /* Production rollout scenario: [[Line Item with image create fix]]: START [corrected the table instance creation for creating new entity and assigned to a common variable] */
+                $lineMetaTable = TableRegistry::get("WorkOrderLineItemMeta");
+                $newLineItemMeta = $lineMetaTable->newEntity();
+                /* Production rollout scenario: [[Line Item with image create fix]]: END */
                 $newLineItemMeta->worder_item_id = $newItemId;
             } elseif ($ordermode == "order") {
-                $newLineItemMeta = $this->OrderLineItemMeta->newEntity();
+                /* Production rollout scenario: [[Line Item with image create fix]]: START [corrected the table instance creation for creating new entity and assigned to a common variable] */
+                $lineMetaTable = TableRegistry::get("OrderLineItemMeta");
+                $newLineItemMeta = $lineMetaTable->newEntity();
+                /* Production rollout scenario: [[Line Item with image create fix]]: END */
                 $newLineItemMeta->order_item_id = $newItemId;
             } else {
-                $newLineItemMeta = $this->QuoteLineItemMeta->newEntity();
+                /* Production rollout scenario: [[Line Item with image create fix]]: START [corrected the table instance creation for creating new entity and assigned to a common variable] */
+                $lineMetaTable = TableRegistry::get("QuoteLineItemMeta");
+                $newLineItemMeta = $lineMetaTable->newEntity();
+                /* Production rollout scenario: [[Line Item with image create fix]]: END */
                 $newLineItemMeta->quote_item_id = $newItemId;
             }
 
             $newLineItemMeta->meta_key = "libraryimageid";
             $newLineItemMeta->meta_value = $newImage->id;
-            if ($ordermode == "workorder") {
-                $this->WorkOrderLineItemMeta->save($newLineItemMeta);
-            } elseif ($ordermode == "order") {
-                $this->OrderLineItemMeta->save($newLineItemMeta);
-            } else {
-                $this->QouteLineItemMeta->save($newLineItemMeta);
-            }
+            /* Production rollout scenario: [[Line Item with image create fix]]: START [persisting correct instance in DB] */
+            $lineMetaTable->save($newLineItemMeta);
+            /* Production rollout scenario: [[Line Item with image create fix]]: END */
 
             $this->aspectratiofix($newImage->id, 600);
         }
