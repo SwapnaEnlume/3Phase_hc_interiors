@@ -18706,6 +18706,53 @@ class QuotesController extends AppController
 
             $thisLineItem = $lineItemTable->get($lineID);
 
+            /* PPSASCRUM-395: start [determining possible ruleset violation on changing fabric or color and making appropriate rejection oriented API response accordingly] */
+            $itemMetas = $this->OrderLineItemMeta
+                ->find("all", [
+                    "conditions" => [
+                        "order_item_id" => $thisLineItem["id"],
+                    ],
+                ])
+                ->toArray();
+            $lineItemMetas = [];
+            foreach ($itemMetas as $meta) {
+                $lineItemMetas[$meta["meta_key"]] = $meta["meta_value"];
+            }
+            if (
+                isset($thisLineItem["order_id"]) && strlen(trim($thisLineItem["order_id"]) > 0) &&
+                isset($lineItemMetas["fabricid"])  && 
+                $lineItemMetas["fabricid"] != $this->request->data["fabricid"]
+            ) {
+                $fabricColorRulesetViolationRejectionMessage = [
+                    "ABSOLUTE" => "Rule Check: Fabric/Color on Line " . $thisLineItem["line_number"] . " CANNOT BE CHANGED as it has been Partially or Fully PRODUCED|SHIPPED|INVOICED. Might need to Create a new Line",
+                    "CONDITIONAL" => "Rule Check: Fabric/Color on Line " . $thisLineItem["line_number"] . " CANNOT BE CHANGED as it has been Partially or Fully BATCHED, but not PRODUCED. Consider Editing|Deleting the batch first."
+                ];
+
+                $rulesetViolationType = [
+                    "ABSOLUTE" => "Absolute Violation",
+                    "CONDITIONAL" => "Conditional Violation",
+                    "NONE" => "No Violation"
+                ];
+
+                $rulesetViolationReport = $this->checkRulesetViolationForBatchedLines(
+                    $thisLineItem["order_id"],
+                    $thisLineItem["line_number"],
+                    $rulesetViolationType,
+                    $fabricColorRulesetViolationRejectionMessage
+                );
+
+                if (
+                    $rulesetViolationReport["isRulesetViolated"] &&
+                    ($rulesetViolationReport["rulesetViolationType"] == $rulesetViolationType["ABSOLUTE"] ||
+                    $rulesetViolationReport["rulesetViolationType"] == $rulesetViolationType["CONDITIONAL"])
+                ) {
+                    $this->Flash->error($rulesetViolationReport["rulesetViolationRejectionMessage"]);
+                    echo "OK";
+                    exit;
+                }
+            }
+            /* PPSASCRUM-395: end */
+
             $ruleCheckResult = $this->workorderLineItemqtychangerulecheck($lineID, $qty, $thisLineItem->line_number, $thisLineItem->order_id);
             if (is_array($ruleCheckResult) && count($ruleCheckResult) > 0) {
 
@@ -19027,6 +19074,52 @@ class QuotesController extends AppController
         if ($ordermode == "workorder") {
             $result = $workorderlineItemTable->save($thisWorkOrderLineItem);
         } elseif ($ordermode == "order") {
+            /* PPSASCRUM-395: start [determining possible ruleset violation on changing fabric or color and making appropriate rejection oriented API response accordingly] */
+            $itemMetas = $this->OrderLineItemMeta
+                ->find("all", [
+                    "conditions" => [
+                        "order_item_id" => $thisOrderLineItem["id"],
+                    ],
+                ])
+                ->toArray();
+            $lineItemMetas = [];
+            foreach ($itemMetas as $meta) {
+                $lineItemMetas[$meta["meta_key"]] = $meta["meta_value"];
+            }
+            if (
+                isset($thisOrderLineItem["order_id"]) && strlen(trim($thisOrderLineItem["order_id"]) > 0) &&
+                isset($lineItemMetas["fabricid"])  && 
+                $lineItemMetas["fabricid"] != $this->request->data["fabricid"]
+            ) {
+                $fabricColorRulesetViolationRejectionMessage = [
+                    "ABSOLUTE" => "Rule Check: Fabric/Color on Line " . $thisOrderLineItem["line_number"] . " CANNOT BE CHANGED as it has been Partially or Fully PRODUCED|SHIPPED|INVOICED. Might need to Create a new Line",
+                    "CONDITIONAL" => "Rule Check: Fabric/Color on Line " . $thisOrderLineItem["line_number"] . " CANNOT BE CHANGED as it has been Partially or Fully BATCHED, but not PRODUCED. Consider Editing|Deleting the batch first."
+                ];
+
+                $rulesetViolationType = [
+                    "ABSOLUTE" => "Absolute Violation",
+                    "CONDITIONAL" => "Conditional Violation",
+                    "NONE" => "No Violation"
+                ];
+
+                $rulesetViolationReport = $this->checkRulesetViolationForBatchedLines(
+                    $thisOrderLineItem["order_id"],
+                    $thisOrderLineItem["line_number"],
+                    $rulesetViolationType,
+                    $fabricColorRulesetViolationRejectionMessage
+                );
+
+                if (
+                    $rulesetViolationReport["isRulesetViolated"] &&
+                    ($rulesetViolationReport["rulesetViolationType"] == $rulesetViolationType["ABSOLUTE"] ||
+                    $rulesetViolationReport["rulesetViolationType"] == $rulesetViolationType["CONDITIONAL"])
+                ) {
+                    $this->Flash->error($rulesetViolationReport["rulesetViolationRejectionMessage"]);
+                    echo "OK";
+                    exit;
+                }
+            }
+            /* PPSASCRUM-395: end */
 
             $ruleCheckResult = $this->workorderLineItemqtychangerulecheck($lineID, $qty, $thisOrderLineItem->line_number, $thisOrderLineItem->order_id);
 
@@ -30269,8 +30362,8 @@ class QuotesController extends AppController
             /* PPSASCRUM-395: start [determining possible ruleset violation on changing fabric or color and making appropriate rejection oriented API response accordingly] */
             if (
                 isset($thisLineItem["order_id"]) && strlen(trim($thisLineItem["order_id"]) > 0) &&
-                $lineItemMetas["meta_key"] == "fabricid" && 
-                $lineItemMetas["meta_value"] != $this->request->data[$lineItemMetas["meta_key"]]
+                isset($lineItemMetas["fabricid"]) && 
+                $lineItemMetas["fabricid"] != $this->request->data["fabricid"]
             ) {
                 $fabricColorRulesetViolationRejectionMessage = [
                     "ABSOLUTE" => "Rule Check: Fabric/Color on Line " . $thisLineItem["line_number"] . " CANNOT BE CHANGED as it has been Partially or Fully PRODUCED|SHIPPED|INVOICED. Might need to Create a new Line",
