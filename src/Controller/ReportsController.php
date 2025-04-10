@@ -4456,61 +4456,31 @@ class ReportsController extends AppController
 							$bsBoxSpringCoverWidthValue = '';
 							$bsScarvesWidthValue = '';
 							$hwWtBasicWidthValue = '';
-    						if ($remainingUnscheduled > 0) {
+    						if ($qtyValue > 0) {
     						    if($quoteItem['product_type'] == 'newcatchall-drapery'){
-        						    $drapewidthsValue=intval($metaArray['labor-billable-widths']) * $remainingUnscheduled;
+        						    $drapewidthsValue=intval($metaArray['labor-billable-widths']) * $qtyValue;
                                 } /* PPSASCRUM-384: start */ elseif (
                                     $quoteItem['calculator_used'] == 'pinch-pleated' || $quoteItem['calculator_used'] == 'pinch-pleated-new' ||
                                     $quoteItem['calculator_used'] == 'new-pinch-pleated' || $quoteItem['calculator_used'] == 'ripplefold-drapery' ||
                                     $quoteItem['calculator_used'] == 'accordiafold-drapery'
                                 ) /* PPSASCRUM-384: end */ {
-        						    $drapewidthsValue=intval($metaArray['labor-widths']) * $remainingUnscheduled;
+        						    $drapewidthsValue=intval($metaArray['labor-widths']) * $qtyValue;
         						}
 								if (($quoteItem['product_type'] == 'newcatchall-bedding' && (intval($quoteItem['product_class']) == 5 && in_array(intval($quoteItem['product_subclass']), [16, 20])))
 									|| $quoteItem['product_type'] == 'bedspreads' || $quoteItem['calculator_used'] == 'bedspread') {
-										$bsWidthValue = $remainingUnscheduled;
+										$bsWidthValue = $qtyValue;
 								} else if ($quoteItem['product_type'] == 'newcatchall-bedding') {
 									if (intval($quoteItem['product_class']) == 5 && intval($quoteItem['product_subclass']) == 17) {
-										$bsPillowWidthValue = $remainingUnscheduled;
+										$bsPillowWidthValue = $qtyValue;
 									} else if (intval($quoteItem['product_class']) == 5 && intval($quoteItem['product_subclass']) == 18) {
-										$bsBoxSpringCoverWidthValue = $remainingUnscheduled;
+										$bsBoxSpringCoverWidthValue = $qtyValue;
 									} else if (intval($quoteItem['product_class']) == 5 && intval($quoteItem['product_subclass']) == 19) {
-										$bsScarvesWidthValue = $remainingUnscheduled;
+										$bsScarvesWidthValue = $qtyValue;
 									}
 								}
 								if ($quoteItem['product_type'] == 'newcatchall-hardware' && intval($quoteItem['product_class']) == 1
 									&& intval($quoteItem['product_subclass']) == 1) {
-										$hwWtBasicWidthValue = intval($metaArray['lf-each']) * $remainingUnscheduled;
-								}
-    						} else {
-        						if($quoteItem['product_type'] == 'newcatchall-drapery'){
-        						    /* PPSASCRUM-326: start */
-        						    $drapewidthsValue=intval($metaArray['labor-billable-widths']) * (intval($orderItem['qty']));
-        						    /* PPSASCRUM-326: end */
-                                } /* PPSASCRUM-384: start */ elseif (
-                                    $quoteItem['calculator_used'] == 'pinch-pleated' || $quoteItem['calculator_used'] == 'pinch-pleated-new' ||
-                                    $quoteItem['calculator_used'] == 'new-pinch-pleated' || $quoteItem['calculator_used'] == 'ripplefold-drapery' ||
-                                    $quoteItem['calculator_used'] == 'accordiafold-drapery'
-                                ) /* PPSASCRUM-384: end */ {
-                                    /* PPSASCRUM-326: start */
-        						    $drapewidthsValue = intval($metaArray['labor-widths']) * (intval($orderItem['qty']));
-        						    /* PPSASCRUM-326: end */
-        						}
-								if (($quoteItem['product_type'] == 'newcatchall-bedding' && (intval($quoteItem['product_class']) == 5 && in_array(intval($quoteItem['product_subclass']), [16, 20])))
-									|| $quoteItem['product_type'] == 'bedspreads' || $quoteItem['calculator_used'] == 'bedspread') {
-										$bsWidthValue = $orderItem['qty'];
-								} else if ($quoteItem['product_type'] == 'newcatchall-bedding') {
-									if (intval($quoteItem['product_class']) == 5 && intval($quoteItem['product_subclass']) == 17) {
-										$bsPillowWidthValue = $orderItem['qty'];
-									} else if (intval($quoteItem['product_class']) == 5 && intval($quoteItem['product_subclass']) == 18) {
-										$bsBoxSpringCoverWidthValue = $orderItem['qty'];
-									} else if (intval($quoteItem['product_class']) == 5 && intval($quoteItem['product_subclass']) == 19) {
-										$bsScarvesWidthValue = $orderItem['qty'];
-									}
-								}
-								if ($quoteItem['product_type'] == 'newcatchall-hardware' && intval($quoteItem['product_class']) == 1
-									&& intval($quoteItem['product_subclass']) == 1) {
-										$hwWtBasicWidthValue = intval($metaArray['lf-each']) * intval($orderItem['qty']);
+										$hwWtBasicWidthValue = intval($metaArray['lf-each']) * $qtyValue;
 								}
     						}
 							/* PPSASCRUM-326: end */
@@ -4648,6 +4618,10 @@ class ReportsController extends AppController
     						
     						//start inner loop of $loop
     						//begin with UNBATCHED
+
+							/* PPSASCRUM-326: start [necessary initializations for each row data] */
+							$qtyValue = 0;
+							/* PPSASCRUM-326: end */
     						if($loop['unbatched'] > 0)
     							$qtyValue=$loop['unbatched'];
     							$batchValue='N/A';
@@ -4723,27 +4697,16 @@ class ReportsController extends AppController
 							$valanceWidthsValue = '';
 							$corniceWidthsValue = '';
 							$cubicleCurtainLFValue = '';
-    						if ($remainingUnscheduled > 0) {
+    						if ($qtyValue > 0) {
     						    if ($quoteItem['product_type'] == 'newcatchall-valance' || $quoteItem['calculator_used'] == 'box-pleated') {
-        						    $valanceWidthsValue = intval($metaArray['labor-billable']) * $remainingUnscheduled;
+        						    $valanceWidthsValue = intval($metaArray['labor-billable']) * $qtyValue;
         						}
 								if ($quoteItem['product_type'] == 'newcatchall-cornice' || $quoteItem['calculator_used'] == 'straight-cornice') {
-        						    $corniceWidthsValue = intval($metaArray['labor-billable']) * $remainingUnscheduled;
+        						    $corniceWidthsValue = intval($metaArray['labor-billable']) * $qtyValue;
         						}
 								if (($quoteItem['product_type'] == 'newcatchall-cubicle' && (intval($quoteItem['product_class']) == 4 && in_array(intval($quoteItem['product_subclass']), [13, 14, 15])))
 									|| $quoteItem['product_type'] == 'cubicle_curtains' || $quoteItem['calculator_used'] == 'cubicle-curtain') {
-										$cubicleCurtainLFValue = intval($metaArray['labor-billable']) * $remainingUnscheduled;
-								}
-    						} else {
-        						if ($quoteItem['product_type'] == 'newcatchall-valance' || $quoteItem['calculator_used'] == 'box-pleated') {
-        						    $valanceWidthsValue = intval($metaArray['labor-billable']) * (intval($orderItem['qty']));
-        						}
-								if ($quoteItem['product_type'] == 'newcatchall-cornice' || $quoteItem['calculator_used'] == 'straight-cornice') {
-        						    $corniceWidthsValue = intval($metaArray['labor-billable']) * (intval($orderItem['qty']));
-        						}
-								if (($quoteItem['product_type'] == 'newcatchall-cubicle' && (intval($quoteItem['product_class']) == 4 && in_array(intval($quoteItem['product_subclass']), [13, 14, 15])))
-									|| $quoteItem['product_type'] == 'cubicle_curtains' || $quoteItem['calculator_used'] == 'cubicle-curtain') {
-										$cubicleCurtainLFValue = intval($metaArray['labor-billable']) * (intval($orderItem['qty']));
+										$cubicleCurtainLFValue = intval($metaArray['labor-billable']) * $qtyValue;
 								}
     						}
 							/* PPSASCRUM-326: start */
@@ -4874,6 +4837,11 @@ class ReportsController extends AppController
     						
     						
     						//then loop through BATCHED
+
+							/* PPSASCRUM-326: start [necessary initializations for each row data] */
+							$qtyValue = 0;
+							/* PPSASCRUM-326: end */
+
     						foreach($loop['batches'] as $num => $batchloopitem){
     						    $totalLFvalue='';
     						    
@@ -5008,81 +4976,41 @@ class ReportsController extends AppController
 									$bsBoxSpringCoverWidthValue = '';
 									$bsScarvesWidthValue = '';
 									$hwWtBasicWidthValue = '';
-            						if ($qtyScheduled > 0) {
+            						if ($qtyValue > 0) {
 										if (($quoteItem['product_type'] == 'newcatchall-cubicle' && (intval($quoteItem['product_class']) == 4 && in_array(intval($quoteItem['product_subclass']), [13, 14, 15])))
 											|| $quoteItem['product_type'] == 'cubicle_curtains' || $quoteItem['calculator_used'] == 'cubicle-curtain') {
-												$cubicleCurtainLFValue = intval($metaArray['labor-billable']) * $qtyScheduled;
+												$cubicleCurtainLFValue = intval($metaArray['labor-billable']) * $qtyValue;
 										}
             						    if($quoteItem['product_type'] == 'newcatchall-drapery'){
-                						    $drapewidthsValue = intval($metaArray['labor-billable-widths']) * $qtyScheduled;
+                						    $drapewidthsValue = intval($metaArray['labor-billable-widths']) * $qtyValue;
                                         } /* PPSASCRUM-384: start */ elseif (
                                             $quoteItem['calculator_used'] == 'pinch-pleated' || $quoteItem['calculator_used'] == 'pinch-pleated-new' ||
                                             $quoteItem['calculator_used'] == 'new-pinch-pleated' || $quoteItem['calculator_used'] == 'ripplefold-drapery' ||
                                             $quoteItem['calculator_used'] == 'accordiafold-drapery'
                                         ) /* PPSASCRUM-384: end */ {
-                						    $drapewidthsValue = intval($metaArray['labor-widths']) * $qtyScheduled;
+                						    $drapewidthsValue = intval($metaArray['labor-widths']) * $qtyValue;
                 						}
 										if ($quoteItem['product_type'] == 'newcatchall-valance' || $quoteItem['calculator_used'] == 'box-pleated') {
-											$valanceWidthsValue = intval($metaArray['labor-billable']) * $qtyScheduled;
+											$valanceWidthsValue = intval($metaArray['labor-billable']) * $qtyValue;
 										}
 										if ($quoteItem['product_type'] == 'newcatchall-cornice' || $quoteItem['calculator_used'] == 'straight-cornice') {
-											$corniceWidthsValue = intval($metaArray['labor-billable']) * $qtyScheduled;
+											$corniceWidthsValue = intval($metaArray['labor-billable']) * $qtyValue;
 										}
 										if (($quoteItem['product_type'] == 'newcatchall-bedding' && (intval($quoteItem['product_class']) == 5 && in_array(intval($quoteItem['product_subclass']), [16, 20])))
 											|| $quoteItem['product_type'] == 'bedspreads' || $quoteItem['calculator_used'] == 'bedspread') {
-												$bsWidthValue = $qtyScheduled;
+												$bsWidthValue = $qtyValue;
 										} else if ($quoteItem['product_type'] == 'newcatchall-bedding') {
 											if (intval($quoteItem['product_class']) == 5 && intval($quoteItem['product_subclass']) == 17) {
-												$bsPillowWidthValue = $qtyScheduled;
+												$bsPillowWidthValue = $qtyValue;
 											} else if (intval($quoteItem['product_class']) == 5 && intval($quoteItem['product_subclass']) == 18) {
-												$bsBoxSpringCoverWidthValue = $qtyScheduled;
+												$bsBoxSpringCoverWidthValue = $qtyValue;
 											} else if (intval($quoteItem['product_class']) == 5 && intval($quoteItem['product_subclass']) == 19) {
-												$bsScarvesWidthValue = $qtyScheduled;
+												$bsScarvesWidthValue = $qtyValue;
 											}
 										}
 										if ($quoteItem['product_type'] == 'newcatchall-hardware' && intval($quoteItem['product_class']) == 1
 											&& intval($quoteItem['product_subclass']) == 1) {
-												$hwWtBasicWidthValue = intval($metaArray['lf-each']) * $qtyScheduled;
-										}
-            						} else {
-										if (($quoteItem['product_type'] == 'newcatchall-cubicle' && (intval($quoteItem['product_class']) == 4 && in_array(intval($quoteItem['product_subclass']), [13, 14, 15])))
-											|| $quoteItem['product_type'] == 'cubicle_curtains' || $quoteItem['calculator_used'] == 'cubicle-curtain') {
-												$cubicleCurtainLFValue = intval($metaArray['labor-billable']) * (intval($orderItem['qty']));
-										}
-                						if($quoteItem['product_type'] == 'newcatchall-drapery'){
-                						    /* PPSASCRUM-326: start */
-                						    $drapewidthsValue=intval($metaArray['labor-billable-widths']) * (intval($orderItem['qty']));
-                						    /* PPSASCRUM-326: end */
-                                        } /* PPSASCRUM-384: start */ elseif (
-                                            $quoteItem['calculator_used'] == 'pinch-pleated' || $quoteItem['calculator_used'] == 'pinch-pleated-new' ||
-                                            $quoteItem['calculator_used'] == 'new-pinch-pleated' || $quoteItem['calculator_used'] == 'ripplefold-drapery' ||
-                                            $quoteItem['calculator_used'] == 'accordiafold-drapery'
-                                        ) /* PPSASCRUM-384: end */ {
-                                            /* PPSASCRUM-326: start */
-                						    $drapewidthsValue = intval($metaArray['labor-widths']) * (intval($orderItem['qty']));
-                						    /* PPSASCRUM-326: end */
-                						}
-										if ($quoteItem['product_type'] == 'newcatchall-valance' || $quoteItem['calculator_used'] == 'box-pleated') {
-											$valanceWidthsValue = intval($metaArray['labor-billable']) * (intval($orderItem['qty']));
-										}
-										if ($quoteItem['product_type'] == 'newcatchall-cornice' || $quoteItem['calculator_used'] == 'straight-cornice') {
-											$corniceWidthsValue = intval($metaArray['labor-billable']) * (intval($orderItem['qty']));
-										}
-										if (($quoteItem['product_type'] == 'newcatchall-bedding' && (intval($quoteItem['product_class']) == 5 && in_array(intval($quoteItem['product_subclass']), [16, 20])))
-											|| $quoteItem['product_type'] == 'bedspreads' || $quoteItem['calculator_used'] == 'bedspread') {
-												$bsWidthValue = $orderItem['qty'];
-										} else if ($quoteItem['product_type'] == 'newcatchall-bedding') {
-											if (intval($quoteItem['product_class']) == 5 && intval($quoteItem['product_subclass']) == 17) {
-												$bsPillowWidthValue = $orderItem['qty'];
-											} else if (intval($quoteItem['product_class']) == 5 && intval($quoteItem['product_subclass']) == 18) {
-												$bsBoxSpringCoverWidthValue = $orderItem['qty'];
-											} else if (intval($quoteItem['product_class']) == 5 && intval($quoteItem['product_subclass']) == 19) {
-												$bsScarvesWidthValue = $orderItem['qty'];
-											}
-										}
-										if ($quoteItem['product_type'] == 'newcatchall-hardware' && intval($quoteItem['product_class']) == 1
-											&& intval($quoteItem['product_subclass']) == 1) {
-												$hwWtBasicWidthValue = intval($metaArray['lf-each']) * intval($orderItem['qty']);
+												$hwWtBasicWidthValue = intval($metaArray['lf-each']) * $qtyValue;
 										}
             						}
 									/* PPSASCRUM-326: end */
