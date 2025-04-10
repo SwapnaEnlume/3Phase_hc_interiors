@@ -18720,8 +18720,8 @@ class QuotesController extends AppController
             }
             if (
                 isset($thisLineItem["order_id"]) && strlen(trim($thisLineItem["order_id"]) > 0) &&
-                isset($lineItemMetas["fabricid"])  && 
-                $lineItemMetas["fabricid"] != $this->request->data["fabricid"]
+                isset($lineItemMetas["fabricid"]) && 
+                trim(strval($lineItemMetas["fabricid"])) != trim(strval($fabricid))
             ) {
                 $fabricColorRulesetViolationRejectionMessage = [
                     "ABSOLUTE" => "Rule Check: Fabric/Color on Line " . $thisLineItem["line_number"] . " CANNOT BE CHANGED as it has been Partially or Fully PRODUCED|SHIPPED|INVOICED. Might need to Create a new Line",
@@ -19088,8 +19088,8 @@ class QuotesController extends AppController
             }
             if (
                 isset($thisOrderLineItem["order_id"]) && strlen(trim($thisOrderLineItem["order_id"]) > 0) &&
-                isset($lineItemMetas["fabricid"])  && 
-                $lineItemMetas["fabricid"] != $this->request->data["fabricid"]
+                isset($lineItemMetas["fabricid"]) && 
+                trim(strval($lineItemMetas["fabricid"])) != trim(strval($fabricid))
             ) {
                 $fabricColorRulesetViolationRejectionMessage = [
                     "ABSOLUTE" => "Rule Check: Fabric/Color on Line " . $thisOrderLineItem["line_number"] . " CANNOT BE CHANGED as it has been Partially or Fully PRODUCED|SHIPPED|INVOICED. Might need to Create a new Line",
@@ -30414,7 +30414,7 @@ class QuotesController extends AppController
             if (
                 isset($thisLineItem["order_id"]) && strlen(trim($thisLineItem["order_id"]) > 0) &&
                 isset($lineItemMetas["fabricid"]) && 
-                $lineItemMetas["fabricid"] != $this->request->data["fabricid"]
+                $lineItemMetas["fabric_id_with_color"] != $this->request->data["fabric_id_with_color"]
             ) {
                 $fabricColorRulesetViolationRejectionMessage = [
                     "ABSOLUTE" => "Rule Check: Fabric/Color on Line " . $thisLineItem["line_number"] . " CANNOT BE CHANGED as it has been Partially or Fully PRODUCED|SHIPPED|INVOICED. Might need to Create a new Line",
