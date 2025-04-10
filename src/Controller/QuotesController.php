@@ -32018,8 +32018,12 @@ class QuotesController extends AppController
                         $lineWorkOrderItemData = $this->WorkOrderLineItems->get(
                             $lineItemID
                         );
-                        $lineWorkOrderItemData->product_subclass =
-                            $this->request->data["product_subclass"];
+                        /* Production rollout scenario: [[Catch-all lines EDIT fix]]: START [checking to assign product subclass only if present in the payload] */
+                        if (isset($this->request->data["product_subclass"]) && strlen(trim($this->request->data["product_subclass"])) > 0) {
+                            $lineWorkOrderItemData->product_subclass =
+                                $this->request->data["product_subclass"];
+                        }
+                        /* Production rollout scenario: [[Catch-all lines EDIT fix]]: END */
                         $lineWorkOrderItemData->title =
                             $this->request->data["line_item_title"];
                         $lineWorkOrderItemData->description =
@@ -32030,8 +32034,12 @@ class QuotesController extends AppController
                             $this->request->data["qty"];
                         $lineWorkOrderItemData->room_number =
                             $this->request->data["location"];
-                        $lineWorkOrderItemData->enable_tally =
-                            $thisSubClass["tally"];
+                        /* Production rollout scenario: [[Catch-all lines EDIT fix]]: START [rectifying the assignment to 'enable_tally' correctly from the request payload] */
+                        if (isset($this->request->data["tally"]) && strlen(trim($this->request->data["tally"])) > 0) {
+                            $lineWorkOrderItemData->enable_tally =
+                                $this->request->data["tally"];
+                        }
+                        /* Production rollout scenario: [[Catch-all lines EDIT fix]]: END */
                         $lineWorkOrderItemData->unit =
                             $this->request->data["unit_type"];
                         $quoteLineLtemId =
@@ -32043,8 +32051,12 @@ class QuotesController extends AppController
                         $lineOrderItemData = $this->OrderLineItems->get(
                             $lineItemID
                         );
-                        $lineOrderItemData->product_subclass =
-                            $this->request->data["product_subclass"];
+                        /* Production rollout scenario: [[Catch-all lines EDIT fix]]: START [checking to assign product subclass only if its present in the payload] */
+                        if (isset($this->request->data["product_subclass"]) && strlen(trim($this->request->data["product_subclass"])) > 0) {
+                            $lineOrderItemData->product_subclass =
+                                $this->request->data["product_subclass"];
+                        }
+                        /* Production rollout scenario: [[Catch-all lines EDIT fix]]: END */
                         $lineOrderItemData->title =
                             $this->request->data["line_item_title"];
                         $lineOrderItemData->description =
@@ -32054,8 +32066,12 @@ class QuotesController extends AppController
                         $lineOrderItemData->qty = $this->request->data["qty"];
                         $lineOrderItemData->room_number =
                             $this->request->data["location"];
-                        $lineOrderItemData->enable_tally =
-                            $thisSubClass["tally"];
+                        /* Production rollout scenario: [[Catch-all lines EDIT fix]]: START [rectifying the assignment to 'enable_tally' correctly from the request payload] */
+                        if (isset($this->request->data["tally"]) && strlen(trim($this->request->data["tally"])) > 0) {
+                            $lineOrderItemData->enable_tally =
+                                $this->request->data["tally"];
+                        }
+                        /* Production rollout scenario: [[Catch-all lines EDIT fix]]: END */
                         $lineOrderItemData->unit =
                             $this->request->data["unit_type"];
                         $quoteLineLtemId =
@@ -32493,8 +32509,12 @@ class QuotesController extends AppController
                         $lineWorkOrderItemData = $this->WorkOrderLineItems->get(
                             $lineItemID
                         );
-                        $lineWorkOrderItemData->product_subclass =
-                            $this->request->data["product_subclass"];
+                        /* Production rollout scenario: [[Catch-all lines EDIT fix]]: START [checking to assign product subclass only if its present in the payload] */
+                        if (isset($this->request->data["product_subclass"]) && strlen(trim($this->request->data["product_subclass"])) > 0) {
+                            $lineWorkOrderItemData->product_subclass =
+                                $this->request->data["product_subclass"];
+                        }
+                        /* Production rollout scenario: [[Catch-all lines EDIT fix]]: END */
                         $lineWorkOrderItemData->title =
                             $this->request->data["line_item_title"];
                         $lineWorkOrderItemData->description =
@@ -32517,8 +32537,12 @@ class QuotesController extends AppController
                         $lineOrderItemData = $this->OrderLineItems->get(
                             $lineItemID
                         );
-                        $lineOrderItemData->product_subclass =
-                            $this->request->data["product_subclass"];
+                        /* Production rollout scenario: [[Catch-all lines EDIT fix]]: START [checking to assign product subclass only if its present in the payload] */
+                        if (isset($this->request->data["product_subclass"]) && strlen(trim($this->request->data["product_subclass"])) > 0) {
+                            $lineOrderItemData->product_subclass =
+                                $this->request->data["product_subclass"];
+                        }
+                        /* Production rollout scenario: [[Catch-all lines EDIT fix]]: END */
                         $lineOrderItemData->title =
                             $this->request->data["line_item_title"];
                         $lineOrderItemData->description =
@@ -33460,8 +33484,12 @@ class QuotesController extends AppController
                         $lineWorkOrderItemData = $this->WorkOrderLineItems->get(
                             $lineItemID
                         );
-                        $lineWorkOrderItemData->product_subclass =
-                            $this->request->data["product_subclass"];
+                        /* Production rollout scenario: [[Catch-all lines EDIT fix]]: START [checking to assign product subclass only if its present in the payload] */
+                        if (isset($this->request->data["product_subclass"]) && strlen(trim($this->request->data["product_subclass"])) > 0) {
+                            $lineWorkOrderItemData->product_subclass =
+                                $this->request->data["product_subclass"];
+                        }
+                        /* Production rollout scenario: [[Catch-all lines EDIT fix]]: END */
                         $lineWorkOrderItemData->title =
                             $this->request->data["line_item_title"];
                         $lineWorkOrderItemData->description =
@@ -33472,8 +33500,12 @@ class QuotesController extends AppController
                             $this->request->data["qty"];
                         $lineWorkOrderItemData->room_number =
                             $this->request->data["location"];
-                        $lineWorkOrderItemData->enable_tally =
-                            $thisSubClass["tally"];
+                        /* Production rollout scenario: [[Catch-all lines EDIT fix]]: START [rectifying the assignment to 'enable_tally' correctly from the request payload] */
+                        if (isset($this->request->data["tally"]) && strlen(trim($this->request->data["tally"])) > 0) {
+                            $lineWorkOrderItemData->enable_tally =
+                                $this->request->data["tally"];
+                        }
+                        /* Production rollout scenario: [[Catch-all lines EDIT fix]]: END */
                         $lineWorkOrderItemData->unit =
                             $this->request->data["unit_type"];
                         $quoteLineLtemId =
@@ -33486,8 +33518,12 @@ class QuotesController extends AppController
                         $lineOrderItemData = $this->OrderLineItems->get(
                             $lineItemID
                         );
-                        $lineOrderItemData->product_subclass =
-                            $this->request->data["product_subclass"];
+                        /* Production rollout scenario: [[Catch-all lines EDIT fix]]: START [checking to assign product subclass only if its present in the payload] */
+                        if (isset($this->request->data["product_subclass"]) && strlen(trim($this->request->data["product_subclass"])) > 0) {
+                            $lineOrderItemData->product_subclass =
+                                $this->request->data["product_subclass"];
+                        }
+                        /* Production rollout scenario: [[Catch-all lines EDIT fix]]: END */
                         $lineOrderItemData->title =
                             $this->request->data["line_item_title"];
                         $lineOrderItemData->description =
@@ -33497,8 +33533,12 @@ class QuotesController extends AppController
                         $lineOrderItemData->qty = $this->request->data["qty"];
                         $lineOrderItemData->room_number =
                             $this->request->data["location"];
-                        $lineOrderItemData->enable_tally =
-                            $thisSubClass["tally"];
+                        /* Production rollout scenario: [[Catch-all lines EDIT fix]]: START [rectifying the assignment to 'enable_tally' correctly from the request payload] */
+                        if (isset($this->request->data["tally"]) && strlen(trim($this->request->data["tally"])) > 0) {
+                            $lineOrderItemData->enable_tally =
+                                $this->request->data["tally"];
+                        }
+                        /* Production rollout scenario: [[Catch-all lines EDIT fix]]: END */
                         $quoteLineLtemId =
                             $lineOrderItemData->quote_line_item_id;
 
@@ -35040,8 +35080,12 @@ class QuotesController extends AppController
                         $lineWorkOrderItemData = $this->WorkOrderLineItems->get(
                             $lineItemID
                         );
-                        $lineWorkOrderItemData->product_subclass =
-                            $this->request->data["product_subclass"];
+                        /* Production rollout scenario: [[Catch-all lines EDIT fix]]: START [checking to assign product subclass only if its present in the payload] */
+                        if (isset($this->request->data["product_subclass"]) && strlen(trim($this->request->data["product_subclass"])) > 0) {
+                            $lineWorkOrderItemData->product_subclass =
+                                $this->request->data["product_subclass"];
+                        }
+                        /* Production rollout scenario: [[Catch-all lines EDIT fix]]: END */
                         $lineWorkOrderItemData->title =
                             $this->request->data["line_item_title"];
                         $lineWorkOrderItemData->description =
@@ -35064,8 +35108,12 @@ class QuotesController extends AppController
                         $lineOrderItemData = $this->OrderLineItems->get(
                             $lineItemID
                         );
-                        $lineOrderItemData->product_subclass =
-                            $this->request->data["product_subclass"];
+                        /* Production rollout scenario: [[Catch-all lines EDIT fix]]: START [checking to assign product subclass only if its present in the payload] */
+                        if (isset($this->request->data["product_subclass"]) && strlen(trim($this->request->data["product_subclass"])) > 0) {
+                            $lineOrderItemData->product_subclass =
+                                $this->request->data["product_subclass"];
+                        }
+                        /* Production rollout scenario: [[Catch-all lines EDIT fix]]: END */
                         $lineOrderItemData->title =
                             $this->request->data["line_item_title"];
                         $lineOrderItemData->description =
@@ -35587,8 +35635,12 @@ class QuotesController extends AppController
                         $lineWorkOrderItemData = $this->WorkOrderLineItems->get(
                             $lineItemID
                         );
-                        $lineWorkOrderItemData->product_subclass =
-                            $this->request->data["product_subclass"];
+                        /* Production rollout scenario: [[Catch-all lines EDIT fix]]: START [checking to assign product subclass only if its present in the payload] */
+                        if (isset($this->request->data["product_subclass"]) && strlen(trim($this->request->data["product_subclass"])) > 0) {
+                            $lineWorkOrderItemData->product_subclass =
+                                $this->request->data["product_subclass"];
+                        }
+                        /* Production rollout scenario: [[Catch-all lines EDIT fix]]: END */
                         $lineWorkOrderItemData->title =
                             $this->request->data["line_item_title"];
                         $lineWorkOrderItemData->description =
@@ -35611,8 +35663,12 @@ class QuotesController extends AppController
                         $lineOrderItemData = $this->OrderLineItems->get(
                             $lineItemID
                         );
-                        $lineOrderItemData->product_subclass =
-                            $this->request->data["product_subclass"];
+                        /* Production rollout scenario: [[Catch-all lines EDIT fix]]: START [checking to assign product subclass only if its present in the payload] */
+                        if (isset($this->request->data["product_subclass"]) && strlen(trim($this->request->data["product_subclass"])) > 0) {
+                            $lineOrderItemData->product_subclass =
+                                $this->request->data["product_subclass"];
+                        }
+                        /* Production rollout scenario: [[Catch-all lines EDIT fix]]: END */
                         $lineOrderItemData->title =
                             $this->request->data["line_item_title"];
                         $lineOrderItemData->description =
@@ -47181,25 +47237,30 @@ class QuotesController extends AppController
         if ($imgLibraryTable->save($newImage)) {
             //insert the metadata for libraryimageid
             if ($ordermode == "workorder") {
-                $newLineItemMeta = $this->WorkOrderLineItemMeta->newEntity();
+                /* Production rollout scenario: [[Line Item with image create fix]]: START [corrected the table instance creation for creating new entity and assigned to a common variable] */
+                $lineMetaTable = TableRegistry::get("WorkOrderLineItemMeta");
+                $newLineItemMeta = $lineMetaTable->newEntity();
+                /* Production rollout scenario: [[Line Item with image create fix]]: END */
                 $newLineItemMeta->worder_item_id = $newItemId;
             } elseif ($ordermode == "order") {
-                $newLineItemMeta = $this->OrderLineItemMeta->newEntity();
+                /* Production rollout scenario: [[Line Item with image create fix]]: START [corrected the table instance creation for creating new entity and assigned to a common variable] */
+                $lineMetaTable = TableRegistry::get("OrderLineItemMeta");
+                $newLineItemMeta = $lineMetaTable->newEntity();
+                /* Production rollout scenario: [[Line Item with image create fix]]: END */
                 $newLineItemMeta->order_item_id = $newItemId;
             } else {
-                $newLineItemMeta = $this->QuoteLineItemMeta->newEntity();
+                /* Production rollout scenario: [[Line Item with image create fix]]: START [corrected the table instance creation for creating new entity and assigned to a common variable] */
+                $lineMetaTable = TableRegistry::get("QuoteLineItemMeta");
+                $newLineItemMeta = $lineMetaTable->newEntity();
+                /* Production rollout scenario: [[Line Item with image create fix]]: END */
                 $newLineItemMeta->quote_item_id = $newItemId;
             }
 
             $newLineItemMeta->meta_key = "libraryimageid";
             $newLineItemMeta->meta_value = $newImage->id;
-            if ($ordermode == "workorder") {
-                $this->WorkOrderLineItemMeta->save($newLineItemMeta);
-            } elseif ($ordermode == "order") {
-                $this->OrderLineItemMeta->save($newLineItemMeta);
-            } else {
-                $this->QouteLineItemMeta->save($newLineItemMeta);
-            }
+            /* Production rollout scenario: [[Line Item with image create fix]]: START [persisting correct instance in DB] */
+            $lineMetaTable->save($newLineItemMeta);
+            /* Production rollout scenario: [[Line Item with image create fix]]: END */
 
             $this->aspectratiofix($newImage->id, 600);
         }
