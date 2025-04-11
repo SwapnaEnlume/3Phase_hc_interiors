@@ -76,16 +76,22 @@ $(function(){
 
 	}
 	
-    /* PPSASCRUM-398: start */
+    /* PPSASCRUM-398: start [implemented button by screen right-edge inside the error flash modal default template by CakePHP to close this modal] */
     let errorDiv = $("div.message.error");
 
-    if (errorDiv.length == 1 && errorDiv.text() == 'Rule Check: Quantity cannot be less than the scheduled batch quantity.') {
+	/* PPSASCRUM-395: start [updated the ruleset flash error to be identified generically using its prefix label to address this condition for all the rulesets checks] */
+	if (errorDiv.length == 1 && errorDiv.text().startsWith("Rule Check:")) {
+	/* PPSASCRUM-395: end */
         var style = document.createElement("style");
         style.type = "text/css";
         style.innerHTML = "div.message.error:before { display: none; }";
         document.head.appendChild(style);
         
         const clickArea = $("<div>", { class: "click-area" });
+        clickArea.css({
+            position: "absolute",
+            right: "15px"
+        });
         
         const closeButton = $("<input>", {
             type: "button",
@@ -94,18 +100,19 @@ $(function(){
                 display: "flex",
                 justifyContent: "center",
                 alignItems: "center",
-                width: "27px",
-                height: "27px",
+                width: "30px",
+                height: "30px",
                 backgroundColor: "#FFF",
                 color: "#C3232D",
-                border: "1px solid #C3232D",
+                border: "2px solid #c3232d",
                 borderRadius: "50%",
-                fontSize: "16px",
+                fontSize: "18px",
                 fontWeight: "bold",
                 textAlign: "center",
                 cursor: "pointer",
                 lineHeight: "1",
-                margin: "11px 16px 14px 7px"
+                margin: "11px 16px 14px 7px",
+                "box-shadow": "0 2px 5px rgba(0, 0, 0, 0.2)"
             }
         });
     
@@ -1706,7 +1713,13 @@ function deleteLineItem(lineitemid, pageNo){
 /*PPSASCRUM-139: end*/
 	if(confirm('Are you sure you want to delete this line item?')){
 		$.fancybox.showLoading();
-		$.get('/quotes/deletelineitem/'+lineitemid+'/<?php echo $ordermode;?>',function(data){
+		/* PPSASCRUM-396: start [identifying JavaScript scriptlet reponse variant of this API, parsing and executing it upon receiving and sending data-table page number to facilitate the automatic data-table pagination navigation followed by auto-scrolling to the attempted line item for delete which failed due to ruleset rejection upon ruleset violation] */
+		$.get('/quotes/deletelineitem/'+lineitemid+'/<?php echo $ordermode;?>?page='+pageNo,function(data){
+			if (data.toString().startsWith("<script>")) {
+				const script = data.toString().substring(8, data.toString().length - 10);
+				eval(script);
+			}
+		/* PPSASCRUM-396: end */
 			if(data=="OK"){
 				/*PPSASCRUM-139: start*/
 				// updateQuoteTable();
@@ -2038,8 +2051,10 @@ function updateroomnumber(lineitemid,newroomnumber){
 
 
 function autoHideFlashScreen(){
-    /* PPSASCRUM-398: start */
-    if (!($('div.message.error').length == 1 && $('div.message.error').text() == 'Rule Check: Quantity cannot be less than the scheduled batch quantity.')) {
+    /* PPSASCRUM-398: start [disabled the auto-hiding for the default error flash modal by CakePHP specifically for the QTY ruleset 5.0 and 13.0 violation] */
+	/* PPSASCRUM-395: start [updated the ruleset flash error to be identified generically using its prefix label to address this condition for all the rulesets checks] */
+    if (!($('div.message.error').length == 1 && $('div.message.error').text().startsWith("Rule Check:"))) {
+	/* PPSASCRUM-395: end */
 	    $('div.message.success,div.message.error').hide('fast');
     }
     /* PPSASCRUM-398: end */
