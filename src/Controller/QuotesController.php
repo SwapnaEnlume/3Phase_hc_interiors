@@ -23208,8 +23208,19 @@ class QuotesController extends AppController
 
             if ($ordermode == "order") {
                 $orderRow = $ordersTable->get($orderID);
+                /* PPSASCRUM-428: start [calculating the correct Order's Total price based on the latest Adj price changes in the EDIT SO QB] */
+                $updatedOrderTotalPrice = array_reduce($newLineItems, function($priceAccumulator, $lineItem) {
+                    $adjPrice = $lineItem["override_active"] == 1 ? 
+                        floatval($lineItem["override_price"]) : floatval($lineItem["pmi_adjusted"]);
+                    $priceAccumulator += intval($lineItem["qty"]) * $adjPrice;
+                    return $priceAccumulator;
+                }, 0);
+                /* PPSASCRUM-428: end */
                 $orderRow->quote_id = $newquoteid;
-                $orderRow->order_total = $newQuote->quote_total;
+                /* PPSASCRUM-428: start [assigning the latest evaluated Orders Total in the Orders object being persisted] */
+                // $orderRow->order_total = $newQuote->quote_total;
+                $orderRow->order_total = $updatedOrderTotalPrice;
+                /* PPSASCRUM-428: end */
                 $orderRow->status = "Pre-Production";
                 $ordersTable->save($orderRow);
                 $this->logActivity(
