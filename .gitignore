@@ -32,3 +32,17 @@ bin/*
 cgi-bin/*
 webroot/*
 tmp/*
+
+tests/*
+vendor/*
+logs/*
+bin/*
+cgi-bin/*
+webroot/*
+tmp/*
+config/*
+fullsyncfiles/*
+plugins/*
+logs/*
+Console/*
+jsoncontactfiles/*
