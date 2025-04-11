@@ -4450,6 +4450,8 @@ class ReportsController extends AppController
     						$cutwidthValue = $cutwidthwizard->toRichTextObject($cutwidthValue);
     						
     						/* PPSASCRUM-326: start */
+							$qtyValue = $loop['unbatched'];
+							
 							$drapewidthsValue = '';
 							$bsWidthValue = '';
 							$bsPillowWidthValue = '';
